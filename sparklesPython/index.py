@@ -16,10 +16,14 @@
 #
 import webapp2
 
+import pageSetup as p
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('<title>Index</title>')
-        self.response.write('Hello world!')
+        self.response.write(p.getHeader("About"))
+        self.response.write(p.getContents('About me!'))
+        self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
