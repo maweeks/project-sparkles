@@ -15,11 +15,17 @@
 # limitations under the License.
 #
 
+from google.appengine.api import users
+
+def getUser():
+    return users.get_current_user()
+
 def getHeader(page):
     aboutClass = ""
     runClass = ""
     settingsClass = ""
     accountInfo = ""
+    user = getUser()
 
     if page is "About":
         aboutClass = " class='active'"
@@ -29,10 +35,11 @@ def getHeader(page):
         settingsClass = " class='active'"
 
     # check user details
-    # if signed in
-    # show username
-    # else
-    accountInfo = "<a href=''>Sign In</a>"
+    if user:
+        accountInfo = "<li><a href=''>" + user.nickname() + """</a></li>
+        <li><a href="%s">sign out</a></li>""" % (users.create_logout_url(''))
+    else:
+        accountInfo = '<li class="signin"><a class="whiteLink" href="%s">Sign in or register</a></li>' % users.create_login_url('')
 
     headerContents = """<title>Sparkles - """ + page + """</title>
                     <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
@@ -48,14 +55,14 @@ def getHeader(page):
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
                     <span class="sr-only">Toggle navigation</span>
                     </button>
-                    <a class="navbar-brand" href="/">PROJECT SPARKLES</a>
+                    <a class="navbar-brand whiteLink" href="/">PROJECT SPARKLES</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-5">
                     <ul class="nav navbar-nav navbar-right">
                     <li""" + aboutClass + """><a href='/'>About</a></li>
                     <li""" + runClass + """><a href='/run/manual.html'>Run</a></li>
                     <li""" + settingsClass + """><a href='/settings/general.html'>Settings</a></li>
-                    <li>""" + accountInfo + """</li>
+                    """ + accountInfo + """
                     </ul></div></nav>
                     </div>
                     </div>
@@ -69,6 +76,6 @@ def getContents(contents):
 def getFooter():
     return """<footer class="container">
             <div class="row">
-            <hr/><p class="bigMargin softenText text-center"> &copy; 2015. Matt Weeks, Leon Su, Zak Walker</p>
+            <hr/><p class="bigMargin softenText text-center"> &copy; 2015. Matt Weeks, Leon Su &amp; Zak Walker</p>
             </div>
             </footer>"""
