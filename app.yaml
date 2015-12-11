@@ -13,6 +13,18 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /fonts/glyphicons
+  static_dir: fonts/glyphicons
+
+- url: /fonts/lato
+  static_dir: fonts/lato
+
 - url: /
   script: sparklesPython.index.app
 

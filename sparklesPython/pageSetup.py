@@ -16,22 +16,63 @@
 #
 
 def getHeader(page):
-    headerContents = "<header>"
-    headerContents += "<h1>PROJECT SPARKLES</h1>"
-    headerContents += "<em>Links:</em>"
-    headerContents += "<a href='index.html'>About</a>"
-    headerContents += "<a href='/run/manual.html'>Run</a>"
-    headerContents += "<a href='/settings/general.html'>Settings</a>"
+    headerContents = """<link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
+                    <link rel='stylesheet' type='text/css' href='css/flat-ui-pro.min.css'>
+                    <link rel='stylesheet' type='text/css' href='css/style.css'>"""
+    headerContents += "<header>"
+    headerContents += "<div class='container'>"
+    headerContents += "<div class='row'>"
+    headerContents += "<div class='col-xs-6 col-sm-6 col-md-6'>"
+    headerContents += "<a href='index.html'> <h4>PROJECT SPARKLES</h4></a>"
+    headerContents += "</div>"
+    headerContents += "<div class='col-xs-6 col-sm-6 col-md-6'>"
+    headerContents += "<a href='index.html'>About</a><br>"
+    headerContents += "<a href='/run/manual.html'>Run</a><br>"
+    headerContents += "<a href='/settings/general.html'>Settings</a><br>"
     headerContents += "<em>[User]</em>"
+    headerContents += "</div>"
+    headerContents += "</div>"
+    headerContents += "</div>"
     headerContents += "</header><br/>"
+
+
+    headerContents = """<link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
+                    <link rel='stylesheet' type='text/css' href='css/flat-ui-pro.min.css'>
+                    <link rel='stylesheet' type='text/css' href='css/style.css'>
+                    <script src='js/jQuery.js'></script>
+                    <script src='js/flat-ui.min.js'></script>"""
+    headerContents += "<header>"
+    headerContents += "<div class='container'>"
+    headerContents += "<div class='row'>"
+    headerContents += """<nav class="navbar navbar-inverse" role="navigation">
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+                    <span class="sr-only">Toggle navigation</span>
+                    </button>
+                    <a class="navbar-brand" href="/">PROJECT SPARKLES</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse-5">
+                    <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="/">About</a></li>
+                    <li><a href="/run/manual.html">Run</a></li>
+                    <li><a href="/settings/general.html">Settings</a></li>
+                    <li><a>Account</a></li>
+                    </ul></div></nav>"""
+    headerContents += "</div>"
+    headerContents += "</div>"
+    headerContents += "</header>"
+
+
+
+
     return headerContents
 
 def getContents(contents):
-    return "" + contents + ""
+    return "<div class='container'><div class='row'>" + contents + "</div></div>"
 
 def getFooter():
     return """<footer class="container">
-                <div class="row">
-                <hr/><p class="bigMargin softenText text-center"> &copy; 2015. Matt Weeks, Leon Su, Zak Walker</p>
-                </div>
-                </footer>"""
+            <div class="row">
+            <hr/><p class="bigMargin softenText text-center"> &copy; 2015. Matt Weeks, Leon Su, Zak Walker</p>
+            </div>
+            </footer>"""
