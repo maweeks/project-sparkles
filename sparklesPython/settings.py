@@ -18,9 +18,10 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Profiles</title>')
-        self.response.write('Profiles!')
+        self.response.write('<title>Settings</title>')
+        self.response.write('General settings!')
 
 app = webapp2.WSGIApplication([
-    ('/settings/profiles\..*', MainHandler)
+    ('/settings/general\..*', MainHandler),
+    ('/settings/.*', MainHandler)
 ], debug=True)

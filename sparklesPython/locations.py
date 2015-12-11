@@ -18,9 +18,9 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>X</title>')
-        self.response.write('HeTESTESTESTESTSESTESTld!')
+        self.response.write('<title>Locations</title>')
+        self.response.write('Locations!')
 
 app = webapp2.WSGIApplication([
-    ('/x.html', MainHandler)
+    ('/settings/locations\..*', MainHandler)
 ], debug=True)

@@ -23,5 +23,5 @@ class MainHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/index.html', MainHandler)
+    ('/index\..*', MainHandler)
 ], debug=True)

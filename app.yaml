@@ -16,14 +16,29 @@ handlers:
 - url: /
   script: sparklesPython.index.app
 
-- url: /index\.html
+- url: /index\..*
   script: sparklesPython.index.app
 
-- url: /profiles\.html
+- url: /run/auto\..*
+  script: sparklesPython.runAuto.app
+
+- url: /run/manual\..*
+  script: sparklesPython.runManual.app
+
+- url: /run/.*
+  script: sparklesPython.runManual.app
+
+- url: /settings/locations\..*
+  script: sparklesPython.locations.app
+
+- url: /settings/profiles\..*
   script: sparklesPython.profiles.app
 
-- url: /x\.html
-  script: sparklesPython.x.app
+- url: /settings/general\..*
+  script: sparklesPython.settings.app
+
+- url: /settings/.*
+  script: sparklesPython.settings.app
 
 - url: .*
   script: sparklesPython.notFound.app

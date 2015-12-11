@@ -18,9 +18,9 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Profiles</title>')
-        self.response.write('Profiles!')
+        self.response.write('<title>Auto</title>')
+        self.response.write('Run auto script!')
 
 app = webapp2.WSGIApplication([
-    ('/settings/profiles\..*', MainHandler)
+    ('/run/auto\..*', MainHandler)
 ], debug=True)
