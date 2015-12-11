@@ -1,0 +1,29 @@
+application: project-sparkles
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /
+  script: sparklesPython.index.app
+
+- url: /index\.html
+  script: sparklesPython.index.app
+
+- url: /profiles\.html
+  script: sparklesPython.profiles.app
+
+- url: /x\.html
+  script: sparklesPython.x.app
+
+- url: .*
+  script: sparklesPython.notFound.app
