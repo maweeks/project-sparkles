@@ -16,10 +16,13 @@
 #
 import webapp2
 
+import pageSetup as p
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Locations</title>')
-        self.response.write('Locations!')
+        self.response.write(p.getHeader("Settings"))
+        self.response.write(p.getContents('Locations!'))
+        self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
     ('/settings/locations\..*', MainHandler)

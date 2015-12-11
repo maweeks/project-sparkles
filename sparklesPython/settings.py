@@ -16,10 +16,13 @@
 #
 import webapp2
 
+import pageSetup as p
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Settings</title>')
-        self.response.write('General settings!')
+        self.response.write(p.getHeader("Settings"))
+        self.response.write(p.getContents('About Project Sparkles!'))
+        self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
     ('/settings/general\..*', MainHandler),

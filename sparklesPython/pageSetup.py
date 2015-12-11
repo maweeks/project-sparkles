@@ -16,35 +16,34 @@
 #
 
 def getHeader(page):
-    headerContents = """<link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
-                    <link rel='stylesheet' type='text/css' href='css/flat-ui-pro.min.css'>
-                    <link rel='stylesheet' type='text/css' href='css/style.css'>"""
-    headerContents += "<header>"
-    headerContents += "<div class='container'>"
-    headerContents += "<div class='row'>"
-    headerContents += "<div class='col-xs-6 col-sm-6 col-md-6'>"
-    headerContents += "<a href='index.html'> <h4>PROJECT SPARKLES</h4></a>"
-    headerContents += "</div>"
-    headerContents += "<div class='col-xs-6 col-sm-6 col-md-6'>"
-    headerContents += "<a href='index.html'>About</a><br>"
-    headerContents += "<a href='/run/manual.html'>Run</a><br>"
-    headerContents += "<a href='/settings/general.html'>Settings</a><br>"
-    headerContents += "<em>[User]</em>"
-    headerContents += "</div>"
-    headerContents += "</div>"
-    headerContents += "</div>"
-    headerContents += "</header><br/>"
+    aboutClass = ""
+    runClass = ""
+    settingsClass = ""
+    accountInfo = ""
 
+    if page is "About":
+        aboutClass = " class='active'"
+    elif page is "Run":
+        runClass = " class='active'"
+    elif page is "Settings":
+        settingsClass = " class='active'"
 
-    headerContents = """<link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
-                    <link rel='stylesheet' type='text/css' href='css/flat-ui-pro.min.css'>
-                    <link rel='stylesheet' type='text/css' href='css/style.css'>
-                    <script src='js/jQuery.js'></script>
-                    <script src='js/flat-ui.min.js'></script>"""
-    headerContents += "<header>"
-    headerContents += "<div class='container'>"
-    headerContents += "<div class='row'>"
-    headerContents += """<nav class="navbar navbar-inverse" role="navigation">
+    # check user details
+    # if signed in
+    # show username
+    # else
+    accountInfo = "<a href=''>Sign In</a>"
+
+    headerContents = """<title>Sparkles - """ + page + """</title>
+                    <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
+                    <link rel='stylesheet' type='text/css' href='/css/flat-ui-pro.min.css'>
+                    <link rel='stylesheet' type='text/css' href='/css/style.css'>
+                    <script src='/js/jQuery.js'></script>
+                    <script src='/js/flat-ui.min.js'></script>
+                    <header>
+                    <div class='container'>
+                    <div class='row'>
+                    <nav class="navbar navbar-inverse" role="navigation">
                     <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
                     <span class="sr-only">Toggle navigation</span>
@@ -53,17 +52,14 @@ def getHeader(page):
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-5">
                     <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="/">About</a></li>
-                    <li><a href="/run/manual.html">Run</a></li>
-                    <li><a href="/settings/general.html">Settings</a></li>
-                    <li><a>Account</a></li>
-                    </ul></div></nav>"""
-    headerContents += "</div>"
-    headerContents += "</div>"
-    headerContents += "</header>"
-
-
-
+                    <li""" + aboutClass + """><a href='/'>About</a></li>
+                    <li""" + runClass + """><a href='/run/manual.html'>Run</a></li>
+                    <li""" + settingsClass + """><a href='/settings/general.html'>Settings</a></li>
+                    <li>""" + accountInfo + """</li>
+                    </ul></div></nav>
+                    </div>
+                    </div>
+                    </header>"""
 
     return headerContents
 

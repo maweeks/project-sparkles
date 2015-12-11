@@ -16,10 +16,13 @@
 #
 import webapp2
 
+import pageSetup as p
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Man</title>')
-        self.response.write('Run Manual!')
+        self.response.write(p.getHeader("Run"))
+        self.response.write(p.getContents('Run Manual!'))
+        self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
     ('/run/manual\.html', MainHandler),

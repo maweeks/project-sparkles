@@ -16,10 +16,13 @@
 #
 import webapp2
 
+import pageSetup as p
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Page Not Found</title>')
-        self.response.write('404 page not found, please return to the <a href="/">home page</a>')
+        self.response.write(p.getHeader("Page Not Found"))
+        self.response.write(p.getContents('404 page not found, please return to the <a href="/">home page</a>'))
+        self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
     ('.*', MainHandler)

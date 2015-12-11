@@ -16,10 +16,13 @@
 #
 import webapp2
 
+import pageSetup as p
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Auto</title>')
-        self.response.write('Run auto script!')
+        self.response.write(p.getHeader("Run"))
+        self.response.write(p.getContents('Run auto script!'))
+        self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
     ('/run/auto\..*', MainHandler)

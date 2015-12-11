@@ -20,7 +20,6 @@ import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('<title>Index</title>')
         self.response.write(p.getHeader("About"))
         self.response.write(p.getContents('About Project Sparkles!'))
         self.response.write(p.getFooter())
