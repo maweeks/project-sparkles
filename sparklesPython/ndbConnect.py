@@ -86,3 +86,56 @@ def updateAccount(email, autohide, spotify):
         changed = True
     if changed:
         account.put()
+
+
+def createProfileData(email, name, type, sites, playlist, default):
+    profile = Profile()
+    profile.email = email
+    profile.name = name
+    profile.type = type
+    profile.sites = sites
+    profile.playlist = playlist
+    profile.default = default
+    profile.put()
+
+def checkForProfile(email, name):
+    profile_query = Profile.query(Profile.email == email).query(Profile.name == name)
+    profile = account_query.fetch(1)
+    return profile[0]
+
+def printProfileForm(profile):
+    contents = "Name: " + profile.name
+    contents += "<br/>Type: " + profile.type
+    contents += "<br/>Sites: " + profile.sites
+    contents += "</br>Playlist: " + profile.playlist
+    contents += "</br>Default: " + str(profile.default)
+    return contents
+
+def printProfileList(profile):
+    contents = "Name: " + profile.name
+    contents += "<br/>Type: " + profile.type
+    contents += "<br/>Sites: " + profile.sites
+    contents += "</br>Playlist: " + profile.playlist
+    contents += "</br>Default: " + str(profile.default)
+    return contents
+
+def updateProfile(email, name, newName, type, sites, playlist, default):
+    profile = checkForProfile(email, name)
+    changed = False
+    if (profile.name != newName):
+        profile.name = newName
+        changed = True
+    if (profile.type != type):
+        profile.type = type
+        changed = True
+    if (profile.sites != sites):
+        profile.sites = sites
+        changed = True
+    if (profile.playlist != playlist):
+        profile.playlist = playlist
+        changed = True
+    if (profile.default != default):
+        profile.default = default
+        changed = True
+    if changed:
+        profile.put()
