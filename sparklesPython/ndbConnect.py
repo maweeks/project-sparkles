@@ -52,23 +52,10 @@ def printAccountForm(account):
                 <em><b>Email: </b></em>""" + account.email + """<br/>
                 <em><b>Spotify details: </b></em>""" + account.spotify
 
-    #             <form class='form' action="/settings/generalSend" method="post">
-    #             <h6>Settings: </h6>
-
-    #             <div class="form-group">
-    #             <label class="checkbox" for="autohide">
-    #             <input type="checkbox" data-toggle="checkbox" name="autohide" value="True" id="autohide" required """ + checked + """>Option one is this and that&mdash;be sure to include why it's great</label>
-    #             </div>
-
-    #             <input type="checkbox" name="autohide" value="True">I have a bike<br>
-
-    #             <div><textarea name="content" rows="3" cols="60"></textarea></div>
-    #             <div><input type="submit" value="Apply Changes"></div></form>"""
-
     contents += """<form class='form' action="/settings/generalSend" method="post">
                     <h6>Settings: </h6>
                     <label class="checkbox" for="autohide">
-                    <input type="checkbox" data-toggle="checkbox" value="True" id="autohide" name="autohide" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                    <input type="checkbox" data-toggle="checkbox" value="True" id="autohide" name="autohide" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
                     <em><b>Close autorun tab after completion</b></em>
                     </label>
                     <div><input type="submit" value="Apply Changes"></div>

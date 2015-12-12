@@ -18,6 +18,7 @@ import webapp2
 
 import ndbConnect as ndb
 import pageSetup as p
+import time
 
 itemNo = 0
 page = "Settings"
@@ -39,21 +40,6 @@ class MainHandler(webapp2.RequestHandler):
         if itemNo != -1:
             self.response.write(p.getSettingHeadings(itemNo))
 
-
-        # self.response.write("""
-        #                 <div class='container'><div class="row">
-        #                 <div class="col-md-12">
-        #                 <form role="form">
-        #                 <label class="checkbox" for="checkbox1">
-        #                 <input type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required="" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-        #                 Unchecked
-        #                 </label>
-        #                 </form>
-        #                 </div>
-        #                 </div></div>""")
-
-
-
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 
@@ -67,6 +53,7 @@ class StoreHandler(webapp2.RequestHandler):
         if (self.request.get('autohide') == "True"):
             autohide = True
         ndb.updateAccountHide(email, autohide)
+        time.sleep(0.1)
         self.redirect('/settings/general.html')
 
 def generatePage(account):
