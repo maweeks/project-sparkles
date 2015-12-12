@@ -52,7 +52,7 @@ class StoreHandler(webapp2.RequestHandler):
 
         if (self.request.get('autohide') == "True"):
             autohide = True
-        ndb.updateAccountHide(email, autohide)
+        ndb.updateAccount(email, autohide, "NA")
         time.sleep(0.1)
         self.redirect('/settings/general.html')
 

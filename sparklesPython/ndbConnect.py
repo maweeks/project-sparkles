@@ -17,13 +17,21 @@
 
 from google.appengine.ext import ndb
 
-DEFAULT_ACCOUNT_NAME = "userAccount"
-
 class Account(ndb.Model):
     """A main model for representing an individual Profile entry."""
     email = ndb.StringProperty(indexed=True)
     spotify = ndb.StringProperty(indexed=False)
     autoHide = ndb.BooleanProperty(indexed=False)
+
+class Profile(ndb.Model):
+    """A main model for representing an individual Profile entry."""
+    email = ndb.StringProperty(indexed=True)
+    name = ndb.StringProperty(indexed=True)
+    type = ndb.StringProperty(indexed=False)
+    sites = ndb.StringProperty(indexed=False)
+    playlist = ndb.StringProperty(indexed=False)
+    default = ndb.BooleanProperty(indexed=True)
+
 
 def createAccountData(email):
     account = Account()
@@ -67,8 +75,14 @@ def printAccountForm(account):
 
     return contents
 
-def updateAccountHide(email, autohide):
+def updateAccount(email, autohide, spotify):
     account = checkForAccount(email)
+    changed = False
     if (account.autoHide != autohide):
         account.autoHide = autohide
+        changed = True
+    if (account.spotify != spotify):
+        account.spotify = spotify
+        changed = True
+    if changed:
         account.put()
