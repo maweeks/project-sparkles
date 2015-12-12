@@ -25,13 +25,21 @@ class MainHandler(webapp2.RequestHandler):
         url = "settings/general.html"
 
         if not p.getUser():
-        	pageContents += p.getLoginPage(url)
+            pageContents += p.getLoginPage(url)
         else:
-        	pageContents += p.getRow('General settings!')
+            if not ndb.checkForAccount(p.getUser().email()):
+                ndb.createAccountData(p.getUser().email())
+
+            pageContents += p.getRow('General settings!')
+
+
+
+
 
         self.response.write(p.getHeader("Settings", url))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
+
 
 app = webapp2.WSGIApplication([
     ('/settings/general\..*', MainHandler),
