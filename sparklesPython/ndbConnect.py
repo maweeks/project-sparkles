@@ -67,7 +67,8 @@ def printAccountForm(account):
 
     return contents
 
-def updateAccountHide(email, autoHide):
+def updateAccountHide(email, autohide):
     account = checkForAccount(email)
-    account.autoHide = autoHide
-    account.put()
+    if (account.autoHide != autohide):
+        account.autoHide = autohide
+        account.put()
