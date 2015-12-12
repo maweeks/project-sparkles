@@ -47,10 +47,12 @@ handlers:
   script: sparklesPython.profiles.app
 
 - url: /settings/general\..*
-  script: sparklesPython.settings.app
+  script: sparklesPython.general.app
+  login: required
+  auth_fail_action: redirect
 
 - url: /settings/.*
-  script: sparklesPython.settings.app
+  script: sparklesPython.general.app
 
 - url: .*
   script: sparklesPython.notFound.app

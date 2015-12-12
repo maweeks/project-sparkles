@@ -20,8 +20,10 @@ import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        pageContents = p.getRunHeadings(1)
+        pageContents += p.getRow('Run auto script!')
         self.response.write(p.getHeader("Run"))
-        self.response.write(p.getContents('Run auto script!'))
+        self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([

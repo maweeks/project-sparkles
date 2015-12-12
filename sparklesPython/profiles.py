@@ -20,8 +20,10 @@ import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        pageContents = p.getSettingHeadings(1)
+        pageContents += p.getRow('Profile settings!')
         self.response.write(p.getHeader("Settings"))
-        self.response.write(p.getContents('Profiles!'))
+        self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([

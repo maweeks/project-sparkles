@@ -17,12 +17,22 @@
 }
 
 .navbar-nav .thinLeftPadding a {
-	padding-left: 5px;
+	/*padding-left: 5px;*/
 }
 
 .navbar-nav .thinRightPadding a {
-	padding-right: 5px;
+	padding-right: 0px;
 
+}
+
+.blueLink {
+	color: #34495e;
+}
+
+.blueLink:hover, .blueLink:focus {
+	color: #34495e;
+	-webkit-transition: 10000s;
+	transition-duration: 10000s;
 }
 
 .whiteLink {

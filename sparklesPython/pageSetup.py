@@ -55,7 +55,7 @@ def getHeader(page):
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
                     <span class="sr-only">Toggle navigation</span>
                     </button>
-                    <a class="navbar-brand whiteLink">PROJECT SPARKLES</a>
+                    <a class="navbar-brand whiteLink" href='/'>PROJECT SPARKLES</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-5">
                     <ul class="nav navbar-nav navbar-right">
@@ -70,8 +70,40 @@ def getHeader(page):
 
     return headerContents
 
+def getRunHeadings(active):
+    return getSubheadings("Run", ["Manual", "Auto"], active)
+
+def getSettingHeadings(active):
+    return getSubheadings("Settings", ["General", "Profiles", "Locations"], active)
+
+def getSubheadings(title, pages, active):
+    pageList = ""
+
+    for i in range(0, len(pages)):
+        classList = ""
+        if active == i:
+            classList = " class='active'"
+        pageList += "<li" + classList + " ><a href='/" + (title + "/" + pages[i] + ".html").lower() + "'>" + pages[i] + "</a></li>"
+
+    contents = """<nav class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span></button>
+                    <a class="navbar-brand blueLink">""" + title + """</a>
+                    </div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">""" + pageList + """</ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"></ul>
+                    </div>
+                    </nav>"""
+
+    return getRow(contents)
+
 def getContents(contents):
-    return "<div class='container'><div class='row'>" + contents + "</div></div>"
+    return "<div class='container'>" + contents + "</div>"
+
+def getRow(contents):
+    return "<div class='row'>" + contents + "</div>"
 
 def getFooter():
     return """<footer class="container">

@@ -20,8 +20,13 @@ import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        pageContents = p.getRow('About Project Sparkles!')
+        pageContents += p.getRow('About Project Sparkles!')
+
+
+
         self.response.write(p.getHeader("About"))
-        self.response.write(p.getContents('About Project Sparkles!'))
+        self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 
 app = webapp2.WSGIApplication([
