@@ -50,15 +50,20 @@ def printAccountForm(account):
     contents = """<h6>Account details:</h6>
                 <em><b>Email:</b></em> """ + account.email + """<br/>
                 <em><b>Spotify details:</b></em>""" + account.spotify + """
+                <form action="/settings/generalSend" method="post">
                 <h6>Settings:</h6>
-                <label class="checkbox" for="checkbox4">
-                <input type="checkbox" data-toggle="checkbox" value="" id="checkbox4" required """ + checked + """ class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-                <em><b>Close autorun tab on completion</b></em>
-                </label>"""
+
+
+
+                <input type="checkbox" name="autohide" value="True">I have a bike<br>
+
+
+
+                <div><textarea name="content" rows="3" cols="60"></textarea></div>
+                <div><input type="submit" value="Apply Changes"></div></form>"""
     return contents
 
-def updateAccountData(email, autoHide, spotify):
+def updateAccountHide(email, autoHide):
     account = checkForAccount(email)
     account.autoHide = autoHide
-    account.spotify = spotify
     account.put()

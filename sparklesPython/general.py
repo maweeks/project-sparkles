@@ -19,7 +19,6 @@ import webapp2
 import ndbConnect as ndb
 import pageSetup as p
 
-
 itemNo = 0
 page = "Settings"
 url = "settings/general.html"
@@ -36,16 +35,26 @@ class MainHandler(webapp2.RequestHandler):
             pageContents = generatePage(ndb.forceAccount(email))
 
         self.response.write(p.getHeader(page, url))
-        if itemNo != -1:
-            self.response.write(p.getSettingHeadings(itemNo))
+        # if itemNo != -1:
+            # self.response.write(p.getSettingHeadings(itemNo))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
+
+class StoreHandler(webapp2.RequestHandler):
+    def post(self):
+        email = p.getUser().email()
+        autohide = False
+        if (self.request.get('autohide') == "True"):
+            autohide = True
+        ndb.updateAccountHide(email, autohide)
+        self.redirect('/settings/general.html')
 
 def generatePage(account):
     return p.getRow(ndb.printAccountForm(account))
 
 app = webapp2.WSGIApplication([
     ('/settings/general\..*', MainHandler),
+    ('/settings/generalSend', StoreHandler),
     ('/settings/.*', MainHandler)
 ], debug=True)
 
