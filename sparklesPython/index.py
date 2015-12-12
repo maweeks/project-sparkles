@@ -39,7 +39,7 @@ class MainHandler(webapp2.RequestHandler):
     					<li>Set the actions that you want to trigger each of the profiles.</li>
     					</ol></b><br/>
     					<h5 class='text-primary'>Got some feedback?</h5>
-    					<b>If you have any feedback or suggestions for the project, please send an email to <a href='mailto:projectsparkles1@gmail.com'>projectsparkles1@gmail.com</b>"""
+    					<b>If you have any feedback or suggestions for the project, please send an email to <a href='mailto:projectsparkles1@gmail.com'>projectsparkles1@gmail.com</a></b>"""
 
         pageContents = p.getRow(mainContents)
 
