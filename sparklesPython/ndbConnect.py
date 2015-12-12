@@ -14,25 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import webapp2
 
-import ndbConnect as ndb
-import pageSetup as p
+from google.appengine.ext import ndb
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        pageContents = p.getRunHeadings(1)
-        url = "run/auto.html"
-
-        if not p.getUser():
-        	pageContents += p.getLoginPage(url)
-        else:
-        	pageContents += p.getRow('Run auto script!')
-
-        self.response.write(p.getHeader("Run", url))
-        self.response.write(p.getContents(pageContents))
-        self.response.write(p.getFooter())
-
-app = webapp2.WSGIApplication([
-    ('/run/auto\..*', MainHandler)
-], debug=True)

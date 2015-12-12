@@ -16,6 +16,7 @@
 #
 import webapp2
 
+import ndbConnect as ndb
 import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
