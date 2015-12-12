@@ -35,20 +35,10 @@ def createAccountData(email):
 def checkForAccount(email):
 	account_query = Account.query(Account.email == email)
 	account = account_query.fetch(1)
-	return account
+	return account[0]
 
-#     greetings_query = Greeting.query(
-#     ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-# greetings = greetings_query.fetch(10)
-
-# user = users.get_current_user()
-# for greeting in greetings:
-#     if greeting.author:
-#         author = greeting.author.email
-#         if user and user.user_id() == greeting.author.identity:
-#             author += ' (You)'
-#         self.response.write('<b>%s</b> wrote:' % author)
-#     else:
-#         self.response.write('An anonymous person wrote:')
-#     self.response.write('<blockquote>%s</blockquote>' %
-#                         cgi.escape(greeting.content))
+def updateAccountData(email, autoHide, spotify):
+	account = checkForAccount(email)
+	account.autoHide = autoHide
+	account.spotify = spotify
+	account.put()

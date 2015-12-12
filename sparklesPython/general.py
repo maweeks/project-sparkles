@@ -29,7 +29,7 @@ class MainHandler(webapp2.RequestHandler):
         else:
             if not ndb.checkForAccount(p.getUser().email()):
                 ndb.createAccountData(p.getUser().email())
-
+            ndb.updateAccountData(p.getUser().email(), True, "")
             pageContents += p.getRow('General settings!')
 
 
