@@ -20,10 +20,28 @@ import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        pageContents = p.getRow('About Project Sparkles!')
-        pageContents += p.getRow('About Project Sparkles!')
+    	mainContents = """<div class='text-center'>
+    					<h2 >Project Sparkles</h2>
+    					<em><b>Automate your device, and carry on with your life!</b></em>
+    					</div><br/>
+    					<h5 class='text-primary'>What is Project Sparkles?</h5>
+    					<b>Project Sparkles is a simple application that allows you to automate actions to speed up the setting up your device.</b><br/><br/>
+    					<h5 class='text-primary'>What actions are available?</h5>
+    					<b><ul>
+    					<li>Open websites.</li>
+    					<li>Play music through spotify (coming soon).</li>
+    					</ul></b><br/>
+    					<h5 class='text-primary'>How do you use it?</h5>
+    					<b><ol>
+    					<li>Sign into your Google account.</li>
+    					<li>Connect any external accounts that you want to connect to.</li>
+    					<li>Create profiles full of the actions that you want to occur.</li>
+    					<li>Set the actions that you want to trigger each of the profiles.</li>
+    					</ol></b><br/>
+    					<h5 class='text-primary'>Got some feedback?</h5>
+    					<b>If you have any feedback or suggestions for the project, please send an email to <a href='mailto:projectsparkles1@gmail.com'>projectsparkles1@gmail.com</b>"""
 
-
+        pageContents = p.getRow(mainContents)
 
         self.response.write(p.getHeader("About"))
         self.response.write(p.getContents(pageContents))
