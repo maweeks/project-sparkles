@@ -23,10 +23,10 @@ class MainHandler(webapp2.RequestHandler):
         pageContents = p.getRunHeadings(0)
         url = "run/manual.html"
 
-        if p.getUser():
-        	pageContents += p.getRow('Run manual!')
-        else:
+        if not p.getUser():
         	pageContents += p.getLoginPage(url)
+        else:
+        	pageContents += p.getRow('Run manual!')
 
         self.response.write(p.getHeader("Run", url))
         self.response.write(p.getContents(pageContents))

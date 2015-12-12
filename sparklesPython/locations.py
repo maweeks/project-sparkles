@@ -23,10 +23,10 @@ class MainHandler(webapp2.RequestHandler):
         pageContents = p.getSettingHeadings(2)
         url = "settings/locations.html"
 
-        if p.getUser():
-        	pageContents += p.getRow('Locations settings!')
-        else:
+        if not p.getUser():
         	pageContents += p.getLoginPage(url)
+        else:
+        	pageContents += p.getRow('Locations settings!')
 
         self.response.write(p.getHeader("Settings", url))
         self.response.write(p.getContents(pageContents))

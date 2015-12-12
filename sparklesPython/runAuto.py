@@ -23,10 +23,10 @@ class MainHandler(webapp2.RequestHandler):
         pageContents = p.getRunHeadings(1)
         url = "run/auto.html"
 
-        if p.getUser():
-        	pageContents += p.getRow('Run auto script!')
-        else:
+        if not p.getUser():
         	pageContents += p.getLoginPage(url)
+        else:
+        	pageContents += p.getRow('Run auto script!')
 
         self.response.write(p.getHeader("Run", url))
         self.response.write(p.getContents(pageContents))
