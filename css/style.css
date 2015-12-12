@@ -1,15 +1,28 @@
-.signin {
+.navbar-nav li.signin {
 	background-color: #2980b9;
 	border-color: #aaa;
 	border-width: 5px;
 	border-radius: 6px; !important
 	color: #fff;
 	transition-property: none;
-	margin: 8px 8px !important;
+	margin: 8px 8px;
 }
 
-.signin a {
-	padding: 7px 13px !important;
+.navbar-nav li.signin a {
+	padding: 7px 13px;
+}
+
+.navbar-nav li.signout a {
+	font-weight: normal;
+}
+
+.navbar-nav .thinLeftPadding a {
+	padding-left: 5px;
+}
+
+.navbar-nav .thinRightPadding a {
+	padding-right: 5px;
+
 }
 
 .whiteLink {
@@ -18,65 +31,11 @@
 
 .whiteLink:hover, .whiteLink:focus {
 	color: #fff;
-	-webkit-transition: 1000s;
-	transition-duration: 1000s;
+	-webkit-transition: 10000s;
+	transition-duration: 10000s;
 }
 
-/*
-a{color:#16a085;text-decoration:none;-webkit-transition:.25s;transition:.25s}
-a:hover,a:focus{
-	color:#1abc9c;
-	text-decoration:none
-	}
-	a:focus{outline:0}*/
-
-
-/*a {
-    color: #16a085;
-    text-decoration: none;
-    -webkit-transition: .25s;
-    transition: .25s
+.navbar-nav li a {
+	padding-left: 15px;
+	padding-right: 15px;
 }
-a:hover,
-a:focus {
-    color: #1abc9c;
-    text-decoration: none
-}
-a:focus {
-    outline: 0
-}
-.img-rounded {
-    border-radius: 6px
-}
-.img-thumbnail {
-    display: inline-block;
-    max-width: 100%;
-    height: auto;
-    padding: 4px;
-    line-height: 1.72222;
-    background-color: #fff;
-    border: 2px solid #bdc3c7;
-    border-radius: 6px;
-    -webkit-transition: all .25s ease-in-out;
-    transition: all .25s ease-in-out
-}
-.img-comment {
-    margin: 24px 0;
-    font-size: 15px;
-    font-style: italic;
-    line-height: 1.2
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-    font-family: inherit;
-    font-weight: 700;*/

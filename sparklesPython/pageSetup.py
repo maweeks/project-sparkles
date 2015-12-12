@@ -36,8 +36,8 @@ def getHeader(page):
 
     # check user details
     if user:
-        accountInfo = "<li><a href=''>" + user.nickname() + """</a></li>
-        <li><a href="%s">sign out</a></li>""" % (users.create_logout_url(''))
+        accountInfo = "<li class='thinRightPadding'><a class='whiteLink'>" + user.nickname() + """</a></li>
+        <li class='signout thinLeftPadding'><a href="%s">sign out</a></li>""" % (users.create_logout_url(''))
     else:
         accountInfo = '<li class="signin"><a class="whiteLink" href="%s">Sign in or register</a></li>' % users.create_login_url('')
 
@@ -55,7 +55,7 @@ def getHeader(page):
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
                     <span class="sr-only">Toggle navigation</span>
                     </button>
-                    <a class="navbar-brand whiteLink" href="/">PROJECT SPARKLES</a>
+                    <a class="navbar-brand whiteLink">PROJECT SPARKLES</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-5">
                     <ul class="nav navbar-nav navbar-right">
