@@ -58,7 +58,7 @@ def printAccountForm(account):
                     <input type="checkbox" data-toggle="checkbox" value="True" id="autohide" name="autohide" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
                     <em><b>Close autorun tab after completion</b></em>
                     </label>
-                    <div>
+                    <div><br/>
                     <input class='btn btn-primary' type="submit" value="Save Changes">
                     <button type="button" class="btn btn-default" onclick="location.reload();">Cancel Changes</button>
                     </div>
