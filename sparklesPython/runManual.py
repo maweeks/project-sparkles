@@ -21,8 +21,14 @@ import pageSetup as p
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         pageContents = p.getRunHeadings(0)
-        pageContents += p.getRow('Run manual!')
-        self.response.write(p.getHeader("Run"))
+        url = "run/manual.html"
+
+        if p.getUser():
+        	pageContents += p.getRow('Run manual!')
+        else:
+        	pageContents += p.getLoginPage(url)
+
+        self.response.write(p.getHeader("Run", url))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 

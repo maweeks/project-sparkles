@@ -43,7 +43,7 @@ class MainHandler(webapp2.RequestHandler):
 
         pageContents = p.getRow(mainContents)
 
-        self.response.write(p.getHeader("About"))
+        self.response.write(p.getHeader("About", "/"))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 

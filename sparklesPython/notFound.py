@@ -20,7 +20,7 @@ import pageSetup as p
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write(p.getHeader("Page Not Found"))
+        self.response.write(p.getHeader("Page Not Found", "/"))
         self.response.write(p.getContents('404 page not found, please return to the <a href="/">home page</a>'))
         self.response.write(p.getFooter())
 

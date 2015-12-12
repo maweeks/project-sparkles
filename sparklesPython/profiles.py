@@ -21,8 +21,14 @@ import pageSetup as p
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         pageContents = p.getSettingHeadings(1)
-        pageContents += p.getRow('Profile settings!')
-        self.response.write(p.getHeader("Settings"))
+        url = "settings/profiles.html"
+
+        if p.getUser():
+        	pageContents += p.getRow('Profile settings!')
+        else:
+        	pageContents += p.getLoginPage(url)
+
+        self.response.write(p.getHeader("Settings", url))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 

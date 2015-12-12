@@ -21,8 +21,14 @@ import pageSetup as p
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         pageContents = p.getRunHeadings(1)
-        pageContents += p.getRow('Run auto script!')
-        self.response.write(p.getHeader("Run"))
+        url = "run/auto.html"
+
+        if p.getUser():
+        	pageContents += p.getRow('Run auto script!')
+        else:
+        	pageContents += p.getLoginPage(url)
+
+        self.response.write(p.getHeader("Run", url))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 

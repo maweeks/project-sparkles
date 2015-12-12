@@ -48,8 +48,6 @@ handlers:
 
 - url: /settings/general\..*
   script: sparklesPython.general.app
-  login: required
-  auth_fail_action: redirect
 
 - url: /settings/.*
   script: sparklesPython.general.app

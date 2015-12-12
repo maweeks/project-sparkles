@@ -20,11 +20,11 @@ from google.appengine.api import users
 def getUser():
     return users.get_current_user()
 
-def getHeader(page):
+def getHeader(page, redirectURL):
     aboutClass = ""
+    accountInfo = ""
     runClass = ""
     settingsClass = ""
-    accountInfo = ""
     user = getUser()
 
     if page is "About":
@@ -37,9 +37,9 @@ def getHeader(page):
     # check user details
     if user:
         accountInfo = "<li class='thinRightPadding'><a class='whiteLink'>" + user.nickname() + """</a></li>
-        <li class='signout thinLeftPadding'><a href="%s">sign out</a></li>""" % (users.create_logout_url(''))
+        <li class='signout thinLeftPadding'><a href="%s">sign out</a></li>""" % (users.create_logout_url("/"))
     else:
-        accountInfo = '<li class="signin"><a class="whiteLink" href="%s">Sign in or register</a></li>' % users.create_login_url('')
+        accountInfo = '<li class="signin"><a class="whiteLink" href="%s">Sign in or register</a></li>' % users.create_login_url((redirectURL))
 
     headerContents = """<title>Sparkles - """ + page + """</title>
                     <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
@@ -102,6 +102,11 @@ def getContents(contents):
 
 def getRow(contents):
     return "<div class='row'>" + contents + "</div>"
+
+def getLoginPage(redirectURL):
+    user = getUser()
+    contents = "<div class='text-center'><b>You need to be logged in to view this page! <br/><br/> You can log in by clicking <a href=" + users.create_login_url((redirectURL)) + ">this link.</a><b></div><br/><br/><br/>"
+    return getRow(contents)
 
 def getFooter():
     return """<footer class="container">
