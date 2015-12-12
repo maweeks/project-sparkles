@@ -19,29 +19,34 @@ import webapp2
 import ndbConnect as ndb
 import pageSetup as p
 
+
+itemNo = 0
+page = "Settings"
+url = "settings/general.html"
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        pageContents = p.getSettingHeadings(0)
-        url = "settings/general.html"
+        user = p.getUser()
+        email = user.email()
+        pageContents = ""
 
-        if not p.getUser():
-            pageContents += p.getLoginPage(url)
+        if not user:
+            pageContents = p.getLoginPage(url)
         else:
-            if not ndb.checkForAccount(p.getUser().email()):
-                ndb.createAccountData(p.getUser().email())
-            ndb.updateAccountData(p.getUser().email(), True, "")
-            pageContents += p.getRow('General settings!')
+            pageContents = generatePage(ndb.forceAccount(email))
 
-
-
-
-
-        self.response.write(p.getHeader("Settings", url))
+        self.response.write(p.getHeader(page, url))
+        if itemNo != -1:
+            self.response.write(p.getSettingHeadings(itemNo))
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 
+def generatePage(account):
+    return p.getRow(ndb.printAccountForm(account))
 
 app = webapp2.WSGIApplication([
     ('/settings/general\..*', MainHandler),
     ('/settings/.*', MainHandler)
 ], debug=True)
+
+# ndb.updateAccountData(email(), True, "NA")

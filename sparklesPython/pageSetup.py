@@ -83,7 +83,7 @@ def getSubheadings(title, pages, active):
             classList = " class='active'"
         pageList += "<li" + classList + " ><a href='/" + (title + "/" + pages[i] + ".html").lower() + "'>" + pages[i] + "</a></li>"
 
-    contents = """<nav class="navbar navbar-default" role="navigation">
+    contents = """<nav class="container"><div class='row'><nav class="navbar navbar-default" role="navigation">
                     <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span></button>
@@ -92,10 +92,10 @@ def getSubheadings(title, pages, active):
                     <ul class="nav navbar-nav">""" + pageList + """</ul>
                     <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"></ul>
-                    </div>
-                    </nav>"""
+                    </div></nav>
+                    </div></nav>"""
 
-    return getRow(contents)
+    return contents
 
 def getContents(contents):
     return "<div class='container'>" + contents + "</div>"
