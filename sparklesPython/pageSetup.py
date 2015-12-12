@@ -47,8 +47,7 @@ def getHeader(page):
                     <link rel='stylesheet' type='text/css' href='/css/style.css'>
                     <script src='/js/jQuery.js'></script>
                     <script src='/js/flat-ui.min.js'></script>
-                    <header>
-                    <div class='container'>
+                    <header class='container'>
                     <div class='row'>
                     <nav class="navbar navbar-inverse" role="navigation">
                     <div class="navbar-header">
@@ -64,7 +63,6 @@ def getHeader(page):
                     <li""" + settingsClass + """><a href='/settings/general.html'>Settings</a></li>
                     """ + accountInfo + """
                     </ul></div></nav>
-                    </div>
                     </div>
                     </header>"""
 
