@@ -136,35 +136,89 @@ def getDefaultProfile(email):
     else:
         return False
 
-def printNewProfileForm(email):
-    checked = ""
-    print(getDefaultProfile(email))
-    if not getDefaultProfile(email):
-        checked = " checked"
-    contents = ""
-
-    contents += """<form class='form' action="/settings/profileSend" method="post">
-                <h6>Create new profile: </h6>
-
-                <label class="checkbox" for="defaultProfile">
-                <input type="checkbox" data-toggle="checkbox" value="True" id="defaultProfile" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-                <em><b>Close autorun tab after completion</b></em>
-                </label>
-                <div><br/>
-                <input class='btn btn-primary' type="submit" value="Save Changes">
-                <button type="button" class="btn btn-default" onclick="location.reload();">Cancel Changes</button>
-                </div>
-                </form>
-                </div>"""
-    return contents
-
-def printProfileForm(profile):
+def printCurrentProfileForm(profile):
     contents = "Name: " + profile.name
     contents += "<br/>Type: " + profile.type
     contents += "<br/>Sites: " + profile.sites
     contents += "</br>Playlist: " + profile.playlist
     contents += "</br>Default: " + str(profile.default)
     return contents
+
+def printNewProfileForm(email):
+    checked = False
+    print(getDefaultProfile(email))
+    if not getDefaultProfile(email):
+        checked = True
+    return printProfileForm("", "Home", "", "", checked)
+
+def printProfileForm(name, type, sites, playlist, default):
+    optionList = ""
+    options = ["Home", "Work", "Travel", "Social", "Other"]
+    selected = ""
+
+    for option in options:
+        if type == option:
+            selected = " selected"
+        else:
+            selected = ""
+        optionList += "<option" + selected + " value='" + option + "'>" + option + "</option>"
+
+    checked = ""
+    if default:
+        checked = " checked"
+
+    contents = """<div class="col-md-12">
+                    <h6>Create new profile: </h6>
+                    <form class='form form-horizontal' action="/settings/profileSend" method="post">
+
+                    <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label"><em><b>Name</b></em></label>
+                    <div class="col-lg-10">
+                    <input class="form-control" id="name" name="name" required placeholder="Name" value='""" + name + """'>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label"><em><b>Type</b></em></label>
+                    <div class="col-lg-10">
+                    <select class="form-control select select-primary select-block mbl">
+                    """ + optionList + """
+                    </select>
+                    <script> $("select").select2({dropdownCssClass: 'dropdown-inverse'}); </script>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="sites" class="col-lg-2 control-label"><em><b>Sites</b></em></label>
+                    <div class="col-lg-10">
+                    <textarea class="form-control" id="sites" name="sites" required rows="3" placeholder="Sites">""" + sites + """</textarea>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="playlist" class="col-lg-2 control-label"><em><b>Playlist</b></em></label>
+                    <div class="col-lg-10">
+                    <input class="form-control" id="playlist" name="playlist" placeholder="Playlist" value='""" + playlist + """'>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                    <label class="checkbox" for="defaultProfile">
+                    <input type="checkbox" data-toggle="checkbox" value="True" id="defaultProfile" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                    <em><b>Make default</b></em>
+                    </label>
+                    </div></div>
+
+                    <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                    <input class='btn btn-primary' type="submit" value="Save Changes">
+                    <button type="button" class="btn btn-default" onclick="location.reload();">Cancel Changes</button>
+                    </div></div>
+
+                    </form></div>"""
+    return contents
+
 
 def printProfileList(profile):
     contents = "Name: " + profile.name

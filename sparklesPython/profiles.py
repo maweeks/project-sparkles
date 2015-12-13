@@ -65,12 +65,15 @@ class StoreHandler(webapp2.RequestHandler):
         self.redirect(url)
 
 def generatePage(account):
-    content = "asdf"
-    content += ndb.printNewProfileForm(account.email)
+    # content = "asdf"
+
+    content = ndb.printNewProfileForm(account.email)
 
     print(ndb.getAllProfiles(account.email))
 
-    return content
+    # content += "asdf"
+
+    return p.getRow(content)
 
 # ndb.createProfileData(account.email, "First", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
 # time.sleep(0.2)
