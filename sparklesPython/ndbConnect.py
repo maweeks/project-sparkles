@@ -38,6 +38,16 @@ class Profile(ndb.Model):
     playlist = ndb.StringProperty(indexed=False)
     default = ndb.BooleanProperty(indexed=True)
 
+class Location(ndb.Model):
+    """A main model for representing an individual Profile entry."""
+    email = ndb.StringProperty(indexed=True)
+    name = ndb.StringProperty(indexed=True)
+    type = ndb.StringProperty(indexed=False)
+    gpsLat = ndb.FloatProperty(indexed=True)
+    gpsLong = ndb.FloatProperty(indexed=True)
+    gpsRange = ndb.IntegerProperty(indexed=False)
+    profileName = ndb.StringProperty(indexed=True)
+
 # Account methods
 
 def createAccountData(email):
@@ -307,3 +317,5 @@ def updateProfile(email, name, newName, type, sites, playlist, default):
         changed = True
     if changed:
         profile.put()
+
+#Location methods
