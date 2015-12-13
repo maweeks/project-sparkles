@@ -123,6 +123,11 @@ def checkForProfile(email, name):
     else:
         return False
 
+def getAllProfiles(email):
+    profile_query = Profile.query(Profile.email == email)
+    profiles = profile_query.fetch(20)
+    return profiles
+
 def getDefaultProfile(email):
     profile_query = Profile.query(Profile.default == True)
     profile = profile_query.fetch(1)
@@ -131,10 +136,27 @@ def getDefaultProfile(email):
     else:
         return False
 
-def getAllProfiles(email):
-    profile_query = Profile.query(Profile.email == email)
-    profiles = profile_query.fetch(20)
-    return profiles
+def printNewProfileForm(email):
+    checked = ""
+    print(getDefaultProfile(email))
+    if not getDefaultProfile(email):
+        checked = " checked"
+    contents = ""
+
+    contents += """<form class='form' action="/settings/profileSend" method="post">
+                <h6>Create new profile: </h6>
+
+                <label class="checkbox" for="defaultProfile">
+                <input type="checkbox" data-toggle="checkbox" value="True" id="defaultProfile" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                <em><b>Close autorun tab after completion</b></em>
+                </label>
+                <div><br/>
+                <input class='btn btn-primary' type="submit" value="Save Changes">
+                <button type="button" class="btn btn-default" onclick="location.reload();">Cancel Changes</button>
+                </div>
+                </form>
+                </div>"""
+    return contents
 
 def printProfileForm(profile):
     contents = "Name: " + profile.name
