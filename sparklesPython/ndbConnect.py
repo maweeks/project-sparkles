@@ -135,7 +135,7 @@ def getAllProfiles(email):
     return profiles
 
 def getDefaultProfile(email):
-    profile_query = Profile.query(Profile.default == True)
+    profile_query = Profile.query(Profile.default == True, Profile.email == email)
     profile = profile_query.fetch(1)
     if profile:
         return profile[0]

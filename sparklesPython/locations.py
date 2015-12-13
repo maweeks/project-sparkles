@@ -18,20 +18,66 @@ import webapp2
 
 import ndbConnect as ndb
 import pageSetup as p
+import runScripts as rs
+import time
+
+itemNo = 0
+page = "Settings"
+url = "/settings/locations.html"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        pageContents = p.getSettingHeadings(2)
-        url = "settings/locations.html"
+        user = p.getUser()
+        pageContents = ""
 
-        if not p.getUser():
-        	pageContents += p.getLoginPage(url)
+        if not user:
+            pageContents = p.getLoginPage(url)
         else:
-        	pageContents += p.getRow('Locations settings!')
+            email = user.email()
+            pageContents = generateGetPage(ndb.forceAccount(email))
 
-        self.response.write(p.getHeader("Settings", url))
+        self.response.write(p.getHeader(page, url))
+
+        if itemNo != -1:
+            self.response.write(p.getSettingHeadings(itemNo))
+
         self.response.write(p.getContents(pageContents))
+
         self.response.write(p.getFooter())
+
+    def post(self):
+        user = p.getUser()
+        pageContents = ""
+
+        if not user:
+            pageContents = p.getLoginPage(url)
+        else:
+            email = user.email()
+            pageContents = generatePage(ndb.forceAccount(email))
+
+        self.response.write(p.getHeader(page, url))
+
+        if itemNo != -1:
+            self.response.write(p.getSettingHeadings(itemNo))
+
+        self.response.write(p.getContents(pageContents))
+
+        self.response.write(p.getFooter())
+
+
+
+def generateGetPage(account):
+    pageContents = p.getRow("""<form class='form' action='""" + url + """' method="post"><input class='btn btn-primary' type="submit" value="Save Changes"></div></form>""")
+    return p.getRow(pageContents)
+
+def generatePage(account):
+    pageContents = p.getRow("""POST""")
+    return p.getRow(pageContents)
+
+
+
+
+
 
 app = webapp2.WSGIApplication([
     ('/settings/locations\..*', MainHandler)
