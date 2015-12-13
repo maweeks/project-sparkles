@@ -81,6 +81,15 @@ def generatePage(account, gps):
     pageContents = p.getRow("""POST""")
     pageContents = p.getRow(p.getGPSBox(gps))
 
+
+
+    # ndb.createLocationData(account.email, "A", "S", 1.01, 0.101, 20, "X")
+    # print("asdf")
+    # print(ndb.checkForLocation(account.email, "A"))
+    # print(ndb.checkForLocation(account.email, "S"))
+    # print(ndb.getAllLocations(account.email))
+    # ndb.deleteLocation("A", account.email)
+
     return pageContents
 
 

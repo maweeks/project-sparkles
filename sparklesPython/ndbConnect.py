@@ -50,13 +50,6 @@ class Location(ndb.Model):
 
 # Account methods
 
-def createAccountData(email):
-    account = Account()
-    account.spotify = ""
-    account.email = email
-    account.autoHide = False
-    account.put()
-
 def checkForAccount(email):
     account_query = Account.query(Account.email == email)
     account = account_query.fetch(1)
@@ -64,6 +57,13 @@ def checkForAccount(email):
         return account[0]
     else:
         return False
+
+def createAccountData(email):
+    account = Account()
+    account.spotify = ""
+    account.email = email
+    account.autoHide = False
+    account.put()
 
 def forceAccount(email):
     if not checkForAccount(email):
@@ -110,6 +110,14 @@ def updateAccount(email, autohide, spotify):
 
 # Profile methods
 
+def checkForProfile(email, name):
+    profile_query = Profile.query(Profile.email == email, Profile.name == name)
+    profile = profile_query.fetch(1)
+    if profile:
+        return profile[0]
+    else:
+        return False
+
 def createProfileData(email, name, type, sites, playlist, default):
     profile = Profile()
     profile.email = email
@@ -125,14 +133,6 @@ def createProfileData(email, name, type, sites, playlist, default):
     if default:
         removeDefaultProfile(email)
     profile.put()
-
-def checkForProfile(email, name):
-    profile_query = Profile.query(Profile.email == email, Profile.name == name)
-    profile = profile_query.fetch(1)
-    if profile:
-        return profile[0]
-    else:
-        return False
 
 def deleteProfile(name, email):
     profile = checkForProfile(email, name)
@@ -318,4 +318,44 @@ def updateProfile(email, name, newName, type, sites, playlist, default):
     if changed:
         profile.put()
 
-#Location methods
+# Location methods
+
+def checkForLocation(email, name):
+    location_query = Location.query(Location.email == email, Location.name == name)
+    location = location_query.fetch(1)
+    if location:
+        return location[0]
+    else:
+        return False
+    return False
+
+def createLocationData(email, name, type, gpsLat, gpsLong, gpsRange, profileName):
+    location = Location()
+    location.email = email
+    location.name = name
+    location.type = type
+    location.gpsLat = gpsLat
+    location.gpsLong = gpsLong
+    location.gpsRange = gpsRange
+    location.profileName = profileName
+    location.put()
+
+def deleteLocation(name, email):
+    location = checkForLocation(email, name)
+    if location:
+        location.put().delete()
+
+def getAllLocations(email):
+    location_query = Location.query(Location.email == email).order(Location.name)
+    locations = location_query.fetch(20)
+    return locations
+
+# noLocations
+
+# printCurrentLocationForm
+
+# printNewLocationForm
+
+# printLocationForm
+
+# updateLocation
