@@ -28,12 +28,12 @@ url = "/run/auto.html"
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         user = p.getUser()
-        email = user.email()
         pageContents = ""
 
-        if not p.getUser():
+        if not user:
             pageContents = p.getLoginPage(url)
         else:
+            email = user.email()
             pageContents = generatePage(ndb.forceAccount(email))
 
         self.response.write(p.getHeader(page, url))

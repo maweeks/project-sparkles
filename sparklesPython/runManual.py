@@ -28,12 +28,12 @@ url = "/run/manual.html"
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         user = p.getUser()
-        email = user.email()
         pageContents = ""
 
-        if not p.getUser():
+        if not user:
             pageContents = p.getLoginPage(url)
         else:
+            email = user.email()
             pageContents = generatePage(ndb.forceAccount(email))
 
         self.response.write(p.getHeader(page, url))
@@ -42,7 +42,9 @@ class MainHandler(webapp2.RequestHandler):
             self.response.write(p.getRunHeadings(itemNo))
 
         self.response.write(p.getContents(pageContents))
+
         self.response.write(p.getFooter())
+
 
 def generatePage(account):
     content = ""
