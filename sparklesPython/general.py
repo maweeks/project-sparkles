@@ -39,7 +39,7 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write(p.getHeader(page, url))
 
         if itemNo != -1:
-            self.response.write(p.getRunHeadings(itemNo))
+            self.response.write(p.getSettingHeadings(itemNo))
 
         self.response.write(p.getContents(pageContents))
 
