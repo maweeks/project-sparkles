@@ -16,6 +16,7 @@
 #
 
 from google.appengine.ext import ndb
+import time
 
 class Account(ndb.Model):
     """A main model for representing an individual Profile entry."""
@@ -23,15 +24,20 @@ class Account(ndb.Model):
     spotify = ndb.StringProperty(indexed=False)
     autoHide = ndb.BooleanProperty(indexed=False)
 
+class ProfileSite(ndb.Model):
+    """A main model for representing an individual Profile entry."""
+    site = ndb.StringProperty(indexed=True)
+
 class Profile(ndb.Model):
     """A main model for representing an individual Profile entry."""
     email = ndb.StringProperty(indexed=True)
     name = ndb.StringProperty(indexed=True)
     type = ndb.StringProperty(indexed=False)
-    sites = ndb.StringProperty(indexed=False)
+    sites = ndb.StructuredProperty(ProfileSite, repeated=True)
     playlist = ndb.StringProperty(indexed=False)
     default = ndb.BooleanProperty(indexed=True)
 
+# Account methods
 
 def createAccountData(email):
     account = Account()
@@ -43,11 +49,15 @@ def createAccountData(email):
 def checkForAccount(email):
     account_query = Account.query(Account.email == email)
     account = account_query.fetch(1)
-    return account[0]
+    if account:
+        return account[0]
+    else:
+        return False
 
 def forceAccount(email):
     if not checkForAccount(email):
         createAccountData(email)
+    time.sleep(0.1)
     return checkForAccount(email)
 
 def printAccountForm(account):
@@ -87,21 +97,44 @@ def updateAccount(email, autohide, spotify):
     if changed:
         account.put()
 
+# Profile methods
 
 def createProfileData(email, name, type, sites, playlist, default):
     profile = Profile()
     profile.email = email
     profile.name = name
     profile.type = type
-    profile.sites = sites
+    profile.sites = []
+    for site in sites:
+        siteX = ProfileSite()
+        siteX.site = site
+        profile.sites.append(siteX)
     profile.playlist = playlist
     profile.default = default
+    if default:
+        removeDefaultProfile(email)
     profile.put()
 
 def checkForProfile(email, name):
-    profile_query = Profile.query(Profile.email == email).query(Profile.name == name)
-    profile = account_query.fetch(1)
-    return profile[0]
+    profile_query = Profile.query(Profile.email == email, Profile.name == name)
+    profile = profile_query.fetch(1)
+    if profile:
+        return profile[0]
+    else:
+        return False
+
+def getDefaultProfile(email):
+    profile_query = Profile.query(Profile.default == True)
+    profile = profile_query.fetch(1)
+    if profile:
+        return profile[0]
+    else:
+        return False
+
+def getAllProfiles(email):
+    profile_query = Profile.query(Profile.email == email)
+    profiles = profile_query.fetch(20)
+    return profiles
 
 def printProfileForm(profile):
     contents = "Name: " + profile.name
@@ -119,6 +152,12 @@ def printProfileList(profile):
     contents += "</br>Default: " + str(profile.default)
     return contents
 
+def removeDefaultProfile(email):
+    profile = getDefaultProfile(email)
+    if profile:
+        profile.default = False
+        profile.put()
+
 def updateProfile(email, name, newName, type, sites, playlist, default):
     profile = checkForProfile(email, name)
     changed = False
@@ -128,14 +167,22 @@ def updateProfile(email, name, newName, type, sites, playlist, default):
     if (profile.type != type):
         profile.type = type
         changed = True
-    if (profile.sites != sites):
-        profile.sites = sites
-        changed = True
+
+    # TODO: Check if same
+    profile.sites = []
+    for site in sites:
+        siteX = ProfileSite()
+        siteX.site = site
+        profile.sites.append(siteX)
+    changed = True
+
     if (profile.playlist != playlist):
         profile.playlist = playlist
         changed = True
     if (profile.default != default):
         profile.default = default
+        if default:
+            removeDefaultProfile(email)
         changed = True
     if changed:
         profile.put()

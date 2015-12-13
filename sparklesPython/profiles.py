@@ -18,21 +18,77 @@ import webapp2
 
 import ndbConnect as ndb
 import pageSetup as p
+import time
+
+itemNo = 1
+page = "Settings"
+url = "settings/profiles.html"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        pageContents = p.getSettingHeadings(1)
-        url = "settings/profiles.html"
+        user = p.getUser()
+        email = user.email()
+        pageContents = ""
 
-        if not p.getUser():
-        	pageContents += p.getLoginPage(url)
+        if not user:
+            pageContents = p.getLoginPage(url)
         else:
-        	pageContents += p.getRow('Profile settings!')
+            pageContents = generatePage(ndb.forceAccount(email))
 
-        self.response.write(p.getHeader("Settings", url))
+        self.response.write(p.getHeader(page, url))
+
+        if itemNo != -1:
+            self.response.write(p.getSettingHeadings(itemNo))
+
         self.response.write(p.getContents(pageContents))
         self.response.write(p.getFooter())
 
+class StoreHandler(webapp2.RequestHandler):
+    def post(self):
+        email = p.getUser().email()
+        # autohide = False
+        # if (self.request.get('autohide') == "True"):
+        #     autohide = True
+
+        # ndb.updateAccount(email,)
+        time.sleep(0.1)
+        self.redirect(url)
+
+def generatePage(account):
+    content = "asdf"
+
+
+    print(ndb.getAllProfiles(account.email))
+
+
+    ndb.createProfileData(account.email, "First", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
+    time.sleep(0.2)
+    ndb.createProfileData(account.email, "First2", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
+    time.sleep(0.2)
+    ndb.updateProfile(account.email, "First", "First3", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
+    time.sleep(0.2)
+
+
+    # if ndb.getDefaultProfile(account.email):
+    #     print("found")
+    # else:
+    #     print("not")
+
+    # if ndb.checkForProfile(account.email, "First2"):
+    #     print("found")
+    # else:
+    #     print("not")
+    #     ndb.createProfileData(account.email, "First2", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", False)
+    # time.sleep(0.1)
+    # if ndb.checkForProfile(account.email, "First"):
+    #     print("found")
+    # else:
+    #     print("not")
+
+    return content
+    # return p.getRow(ndb.printProfileForm())
+
 app = webapp2.WSGIApplication([
-    ('/settings/profiles\..*', MainHandler)
+    ('/settings/profiles\..*', MainHandler),
+    ('/settings/generalSend', StoreHandler)
 ], debug=True)

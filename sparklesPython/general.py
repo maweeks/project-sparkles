@@ -46,15 +46,14 @@ class MainHandler(webapp2.RequestHandler):
 class StoreHandler(webapp2.RequestHandler):
     def post(self):
         email = p.getUser().email()
+
         autohide = False
-
-        print(self.request)
-
         if (self.request.get('autohide') == "True"):
             autohide = True
+
         ndb.updateAccount(email, autohide, "NA")
         time.sleep(0.1)
-        self.redirect('/settings/general.html')
+        self.redirect(url)
 
 def generatePage(account):
     return p.getRow(ndb.printAccountForm(account))
