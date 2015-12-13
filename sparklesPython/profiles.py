@@ -46,11 +46,15 @@ class MainHandler(webapp2.RequestHandler):
 class StoreHandler(webapp2.RequestHandler):
     def post(self):
         email = p.getUser().email()
-        print (self.request)
+        # print (self.request)
 
         name = self.request.get('name')
         newName = name
-        sites = self.request.get('sites')
+        type = self.request.get('type')
+
+        lines = self.request.get('sites')
+        sites = [l for l in lines.split("\n") if l]
+
         playlist = self.request.get('playlist')
         default = False
 
@@ -59,14 +63,13 @@ class StoreHandler(webapp2.RequestHandler):
 
         profile = ndb.checkForProfile(email, name)
 
-
         # name=X&sites=Y&playlist=Z&defaultProfile=True
 
-        # profile = checkForProfile(email, name)
-        # if profile:
-        #     ndb.updateProfile(email, name, newName, type, sites, playlist, default)
-        # else:
-        #     ndb.createProfileData(email, name, type, sites, playlist, default)
+        profile = ndb.checkForProfile(email, name)
+        if profile:
+            ndb.updateProfile(email, name, newName, type, sites, playlist, default)
+        else:
+            ndb.createProfileData(email, name, type, sites, playlist, default)
         time.sleep(0.1)
         self.redirect(url)
 

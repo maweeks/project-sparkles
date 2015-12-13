@@ -146,10 +146,9 @@ def printCurrentProfileForm(profile):
 
 def printNewProfileForm(email):
     checked = False
-    print(getDefaultProfile(email))
     if not getDefaultProfile(email):
         checked = True
-    return printProfileForm("Create new profile", "X", "Home", "Y", "Z", checked)
+    return printProfileForm("Create new profile", "X", "Home", "Y\nS", "Z", checked)
     # return printProfileForm("Create new profile", "", "Home", "", "", checked)
 
 def printProfileForm(title, name, type, sites, playlist, default):
@@ -188,7 +187,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
                     <div class="form-group">
                     <label for="name" class="col-lg-2 control-label"><em><b>Type</b></em></label>
                     <div class="col-lg-10">
-                    <select class="form-control select select-primary select-block mbl">
+                    <select class="form-control select select-primary select-block mbl" name="type">
                     """ + optionList + """
                     </select>
                     <script> $("select").select2({dropdownCssClass: 'dropdown-inverse'}); </script>
