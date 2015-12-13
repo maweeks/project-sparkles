@@ -48,10 +48,12 @@ class MainHandler(webapp2.RequestHandler):
 def generatePage(account):
     content = ""
     profile = ndb.getDefaultProfile(account.email)
-    content += "<script>" + rs.generateProfileScript(profile) + "</script>"
-    content += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
-    content += ndb.printProfileList(profile, True)
-
+    if profile:
+        content += "<script>" + rs.generateProfileScript(profile) + "</script>"
+        content += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
+        content += ndb.printProfileList(profile, True)
+    else:
+        content += ndb.noProfiles()
     return p.getRow(content);
 
 app = webapp2.WSGIApplication([

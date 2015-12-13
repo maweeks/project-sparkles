@@ -127,10 +127,6 @@ def checkForProfile(email, name):
 def deleteProfile(name, email):
     profile = checkForProfile(email, name)
     if profile:
-        print(profile)
-        print("asdf")
-        print(profile.put())
-        print("asdf")
         profile.put().delete()
 
 def getAllProfiles(email):
@@ -146,6 +142,8 @@ def getDefaultProfile(email):
     else:
         return False
 
+def noProfiles():
+    return """<div class='col-md-12 text-center'><h6>No profiles found, please add some <a href='/settings/profiles.html'>here</a>.</h6></div>"""
 def printCurrentProfileForm(profile):
     name = profile.name
     type = profile.type
