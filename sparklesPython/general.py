@@ -31,7 +31,7 @@ class MainHandler(webapp2.RequestHandler):
         email = user.email()
         pageContents = ""
 
-        if not user:
+        if not p.getUser():
             pageContents = p.getLoginPage(url)
         else:
             pageContents = generatePage(ndb.forceAccount(email))
