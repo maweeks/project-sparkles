@@ -143,7 +143,7 @@ def getDefaultProfile(email):
         return False
 
 def noProfiles():
-    return """<div class='col-md-12 text-center'><h6>No profiles found, please add some <a href='/settings/profiles.html'>here</a>.</h6></div>"""
+    return """<div class='col-md-12 text-center'><h6>No profiles found, please add some by following <a href='/settings/profiles.html'>this link</a>.</h6></div>"""
 def printCurrentProfileForm(profile):
     name = profile.name
     type = profile.type
