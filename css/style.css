@@ -62,6 +62,10 @@ div.container {
 
 }
 
+.soloList {
+    margin: 0 auto;
+}
+
 .whiteLink {
     color: #fff;
 }

@@ -18,20 +18,41 @@ import webapp2
 
 import ndbConnect as ndb
 import pageSetup as p
+import runScripts as rs
+import time
+
+itemNo = 1
+page = "Run"
+url = "/run/auto.html"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        pageContents = p.getRunHeadings(1)
-        url = "run/auto.html"
+        user = p.getUser()
+        email = user.email()
+        pageContents = ""
 
-        if not p.getUser():
-        	pageContents += p.getLoginPage(url)
+        if not user:
+            pageContents = p.getLoginPage(url)
         else:
-        	pageContents += p.getRow('Run auto script!')
+            pageContents = generatePage(ndb.forceAccount(email))
 
-        self.response.write(p.getHeader("Run", url))
+        self.response.write(p.getHeader(page, url))
+
+        if itemNo != -1:
+            self.response.write(p.getRunHeadings(itemNo))
+
         self.response.write(p.getContents(pageContents))
+
         self.response.write(p.getFooter())
+
+def generatePage(account):
+    content = ""
+    profile = ndb.getDefaultProfile(account.email)
+    content += "<script>" + rs.generateProfileScript(profile) + "</script>"
+    content += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
+    content += ndb.printProfileList(profile, True)
+
+    return p.getRow(content);
 
 app = webapp2.WSGIApplication([
     ('/run/auto\..*', MainHandler)

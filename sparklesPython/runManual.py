@@ -48,7 +48,7 @@ def generatePage(account):
     content = ""
     profiles = ndb.getAllProfiles(account.email)
     for profile in profiles:
-        content += ndb.printProfileList(profile)
+        content += ndb.printProfileList(profile, False)
 
     return p.getRow(content);
 

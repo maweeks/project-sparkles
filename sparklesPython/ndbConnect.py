@@ -128,7 +128,7 @@ def deleteProfile(profile):
     profile.delete()
 
 def getAllProfiles(email):
-    profile_query = Profile.query(Profile.email == email)
+    profile_query = Profile.query(Profile.email == email).order(-Profile.default,-Profile.name)
     profiles = profile_query.fetch(20)
     return profiles
 
@@ -239,7 +239,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
                     </form></div>"""
     return contents
 
-def printProfileList(profile):
+def printProfileList(profile, solo):
     defaultHighlight = ""
     if profile.default:
         defaultHighlight = " defaultThumbnail"
@@ -249,7 +249,11 @@ def printProfileList(profile):
     for site in profile.sites:
         sites+= "<a href='" + site.site + "' target='_blank'>" + site.site + "</a><br/>"
 
-    contents = """<div class='col-sm-6 col-md-4'><div class='thumbnail """ + defaultHighlight + """'>
+    soloClasses = ""
+    if solo:
+        soloClasses = " col-sm-offset-3 col-md-offset-4"
+
+    contents = """<div class='col-sm-6 col-md-4 """ + soloClasses + """'><div class='thumbnail """ + defaultHighlight + """'>
                 <button class="btn btn-primary" onclick=" """ + siteFunction + """ ">Run Profile</button>
                 <a href="/settings/profiles.html"><button class="btn btn-default">Edit Profile</button></a>
                 <br/><br/>
