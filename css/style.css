@@ -26,6 +26,10 @@ div.container {
     padding-top: 12px;
 }
 
+.formItemText {
+    padding-top: 10px;
+}
+
 .navbar-nav li a {
     padding-left: 15px;
     padding-right: 15px;

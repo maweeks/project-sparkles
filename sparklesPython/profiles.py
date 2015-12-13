@@ -50,28 +50,22 @@ class StoreHandler(webapp2.RequestHandler):
         # if (self.request.get('autohide') == "True"):
         #     autohide = True
 
-        # ndb.updateAccount(email,)
-
 
 
         # TODO: get data from self
 
         # profile = checkForProfile(email, name)
-        # if profile:
-            # updateProfile(email, name, newName, type, sites, playlist, default)
-        # else:
-            # createProfileData(email, name, type, sites, playlist, default)
+        if profile:
+            updateProfile(email, name, newName, type, sites, playlist, default)
+        else:
+            createProfileData(email, name, type, sites, playlist, default)
         time.sleep(0.1)
         self.redirect(url)
 
 def generatePage(account):
-    # content = "asdf"
-
     content = ndb.printNewProfileForm(account.email)
 
-    print(ndb.getAllProfiles(account.email))
-
-    # content += "asdf"
+    # print all current profiles
 
     return p.getRow(content)
 
@@ -101,5 +95,5 @@ def generatePage(account):
 
 app = webapp2.WSGIApplication([
     ('/settings/profiles\..*', MainHandler),
-    ('/settings/generalSend', StoreHandler)
+    ('/settings/profileSend', StoreHandler)
 ], debug=True)

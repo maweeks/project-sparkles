@@ -149,12 +149,20 @@ def printNewProfileForm(email):
     print(getDefaultProfile(email))
     if not getDefaultProfile(email):
         checked = True
-    return printProfileForm("", "Home", "", "", checked)
+    return printProfileForm("Create new profile", "X", "Home", "Y", "Z", checked)
+    # return printProfileForm("Create new profile", "", "Home", "", "", checked)
 
-def printProfileForm(name, type, sites, playlist, default):
+def printProfileForm(title, name, type, sites, playlist, default):
     optionList = ""
     options = ["Home", "Work", "Travel", "Social", "Other"]
     selected = ""
+
+    if name == "":
+        profileName = """<div class="col-lg-10">
+                    <input class="form-control" id="name" name="name" required placeholder="Name">"""
+    else:
+        profileName = """<div class="col-lg-10 formItemText">
+                        <b>""" + name + """</b><input type="hidden" class="form-control" id="name" name="name" required placeholder="Name" value='""" + name + """'>"""
 
     for option in options:
         if type == option:
@@ -168,13 +176,12 @@ def printProfileForm(name, type, sites, playlist, default):
         checked = " checked"
 
     contents = """<div class="col-md-12">
-                    <h6>Create new profile: </h6>
+                    <h6>""" + title + """: </h6>
                     <form class='form form-horizontal' action="/settings/profileSend" method="post">
 
                     <div class="form-group">
                     <label for="name" class="col-lg-2 control-label"><em><b>Name</b></em></label>
-                    <div class="col-lg-10">
-                    <input class="form-control" id="name" name="name" required placeholder="Name" value='""" + name + """'>
+                    """ + profileName + """
                     </div>
                     </div>
 
@@ -218,7 +225,6 @@ def printProfileForm(name, type, sites, playlist, default):
 
                     </form></div>"""
     return contents
-
 
 def printProfileList(profile):
     contents = "Name: " + profile.name
