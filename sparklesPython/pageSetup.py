@@ -108,6 +108,27 @@ def getLoginPage(redirectURL):
     contents = "<div class='text-center'><b>You need to be logged in to view this page! <br/><br/> You can log in by clicking <a href=" + users.create_login_url((redirectURL)) + ">this link.</a><b></div><br/><br/><br/>"
     return getRow(contents)
 
+def getGPSBox(gps):
+    gpsClass = ""
+    gpsString = ""
+    if gps != "Not available.":
+        gpsClass = " defaultThumbnail"
+        gpsString = "Lat: " + gps[0] + " Long: " + gps[1]
+    else:
+        gpsString = gps
+    return """<div class='col-md-12'>
+<div class='thumbnail""" + gpsClass + """'>
+<form id='geoLoc' class='form form-horizontal'>
+<div class="form-group">
+<label for="location" class="col-lg-2 control-label thinTopPadding"><em><b>Current location:</b></em></label>
+<div class="col-lg-10">
+<p>""" + gpsString + """</p>
+</div>
+</div>
+</form>
+</div>
+</div>"""
+
 def getFooter():
     return """<footer class="container">
             <div class="row">

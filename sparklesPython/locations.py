@@ -21,7 +21,7 @@ import pageSetup as p
 import runScripts as rs
 import time
 
-itemNo = 0
+itemNo = 2
 page = "Settings"
 url = "/settings/locations.html"
 
@@ -49,11 +49,18 @@ class MainHandler(webapp2.RequestHandler):
         user = p.getUser()
         pageContents = ""
 
+        print(self.request.get('location'))
+        gps = "Not available."
+        if self.request.get('location') != "":
+            gps = self.request.get('location').split(" ")
+
+
+
         if not user:
             pageContents = p.getLoginPage(url)
         else:
             email = user.email()
-            pageContents = generatePage(ndb.forceAccount(email))
+            pageContents = generatePage(ndb.forceAccount(email), gps)
 
         self.response.write(p.getHeader(page, url))
 
@@ -67,12 +74,14 @@ class MainHandler(webapp2.RequestHandler):
 
 
 def generateGetPage(account):
-    pageContents = p.getRow("""<form class='form' action='""" + url + """' method="post"><input class='btn btn-primary' type="submit" value="Save Changes"></div></form>""")
-    return p.getRow(pageContents)
+    pageContents = p.getRow(rs.getGPSJavascript(url))
+    return pageContents
 
-def generatePage(account):
+def generatePage(account, gps):
     pageContents = p.getRow("""POST""")
-    return p.getRow(pageContents)
+    pageContents = p.getRow(p.getGPSBox(gps))
+
+    return pageContents
 
 
 

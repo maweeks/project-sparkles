@@ -30,6 +30,10 @@ div.container {
     padding-top: 12px;
 }
 
+.form-horizontal .thinTopPadding {
+    padding-top: 3px;
+}
+
 .formItemText {
     padding-top: 10px;
 }
@@ -79,4 +83,9 @@ div.container {
     color: #fff;
     -webkit-transition: 10000s;
     transition-duration: 10000s;
+}
+
+#geoLoc, #geoLoc .form-group {
+    margin-bottom: 0px;
+    padding-top: 5px;
 }
