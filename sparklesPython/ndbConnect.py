@@ -130,7 +130,7 @@ def deleteProfile(name, email):
         profile.put().delete()
 
 def getAllProfiles(email):
-    profile_query = Profile.query(Profile.email == email).order(-Profile.default,-Profile.name)
+    profile_query = Profile.query(Profile.email == email).order(-Profile.default,Profile.name)
     profiles = profile_query.fetch(20)
     return profiles
 
@@ -143,7 +143,9 @@ def getDefaultProfile(email):
         return False
 
 def noProfiles():
-    return """<div class='col-md-12 text-center'><h6>No profiles found, please add some by following <a href='/settings/profiles.html'>this link</a>.</h6></div>"""
+    content = "<div class='col-md-12 text-center'><h6>No profiles found, please add some by following <a href='/settings/profiles.html'>this link</a>.</h6></div>"
+    return content
+
 def printCurrentProfileForm(profile):
     name = profile.name
     type = profile.type
@@ -167,10 +169,16 @@ def printProfileForm(title, name, type, sites, playlist, default):
     options = ["Home", "Work", "Travel", "Social", "Other"]
     selected = ""
     deleteForm = ""
+    defaultHighlight = ""
+
+    if default:
+        defaultHighlight = " defaultThumbnail"
+
     if name == "":
         profileName = """<div class="col-lg-10">
                     <input class="form-control" id="name" name="name" required placeholder="Name">"""
     else:
+
         deleteForm = """<button type="button" class="btn btn-danger" onclick="document.getElementById('form""" + name + """').action='/settings/profileDelete';document.getElementById('form""" + name + """').submit();">Delete Profile</button>"""
         profileName = """<div class="col-lg-10 formItemText">
                         <b>""" + name + """</b><input type="hidden" class="form-control" id="name" name="name" required placeholder="Name" value='""" + name + """'>"""
@@ -186,7 +194,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
     if default:
         checked = " checked"
 
-    contents = """<div class="col-md-12">
+    contents = """<div class="col-md-12"><div class='thumbnail formThumbnail""" + defaultHighlight + """'>
                     <h6>""" + title + """: </h6>
                     <form class='form form-horizontal' action="/settings/profileSend"  id='form""" + name + """' method="post">
 
@@ -235,7 +243,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
                     """ + deleteForm + """
                     </div></div>
 
-                    </form></div>"""
+                    </form></div></div>"""
     return contents
 
 def printProfileList(profile, solo):

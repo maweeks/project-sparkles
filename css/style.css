@@ -34,6 +34,11 @@ div.container {
     padding-top: 10px;
 }
 
+.formThumbnail {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .navbar-nav li a {
     padding-left: 15px;
     padding-right: 15px;
