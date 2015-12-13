@@ -244,12 +244,19 @@ def printProfileList(profile):
         defaultHighlight = " defaultThumbnail"
 
     sites = ""
+    siteFunction = ""
     for site in profile.sites:
         sites+= "<a href='" + site.site + "' target='_blank'>" + site.site + "</a><br/>"
+        # siteFunction = "window.open('http://www.bbc.co.uk/');"
+        siteFunction += "window.open(' " + site.site.rstrip() + "');"
+        print("window.open('" + site.site.rstrip() + "');")
 
     contents = """<div class='col-sm-6 col-md-4'><div class='thumbnail """ + defaultHighlight + """'>
 
 
+                <button class="btn btn-primary" onclick=" """ + siteFunction + """ ">Run Profile</button>
+                <a href="/settings/profiles.html"><button class="btn btn-default">Edit Profile</button></a>
+                <br/><br/>
 
                 <b><em>Name: </em> """ + profile.name + """</b><br/>
                 <b><em>Type: </em></b> """ + profile.type + """<br/>
@@ -257,9 +264,6 @@ def printProfileList(profile):
                 <b><em>Playlist: </em></b> """ + profile.playlist + """<br/>
                 <b><em>Default: </em></b> """ + str(profile.default) + """
                 </div></div>
-
-
-
                 """
     return contents
 

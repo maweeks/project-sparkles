@@ -22,6 +22,10 @@ div.container {
     line-height: 1.3;
 }
 
+.defaultThumbnail {
+    border-color: #1abc9c;
+}
+
 .form-horizontal .control-label {
     padding-top: 12px;
 }
