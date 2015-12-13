@@ -239,11 +239,28 @@ def printProfileForm(title, name, type, sites, playlist, default):
     return contents
 
 def printProfileList(profile):
-    contents = "Name: " + profile.name
-    contents += "<br/>Type: " + profile.type
-    contents += "<br/>Sites: " + profile.sites
-    contents += "</br>Playlist: " + profile.playlist
-    contents += "</br>Default: " + str(profile.default)
+    defaultHighlight = ""
+    if profile.default:
+        defaultHighlight = " defaultThumbnail"
+
+    sites = ""
+    for site in profile.sites:
+        sites+= "<a href='" + site.site + "' target='_blank'>" + site.site + "</a><br/>"
+
+    contents = """<div class='col-sm-6 col-md-4'><div class='thumbnail """ + defaultHighlight + """'>
+
+
+
+                <b><em>Name: </em> """ + profile.name + """</b><br/>
+                <b><em>Type: </em></b> """ + profile.type + """<br/>
+                <b><em>Sites: </em></b> """ + sites + """
+                <b><em>Playlist: </em></b> """ + profile.playlist + """<br/>
+                <b><em>Default: </em></b> """ + str(profile.default) + """
+                </div></div>
+
+
+
+                """
     return contents
 
 def removeDefaultProfile(email):
