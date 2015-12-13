@@ -22,7 +22,7 @@ import time
 
 itemNo = 1
 page = "Settings"
-url = "settings/profiles.html"
+url = "/settings/profiles.html"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -46,19 +46,27 @@ class MainHandler(webapp2.RequestHandler):
 class StoreHandler(webapp2.RequestHandler):
     def post(self):
         email = p.getUser().email()
-        # autohide = False
-        # if (self.request.get('autohide') == "True"):
-        #     autohide = True
+        print (self.request)
+
+        name = self.request.get('name')
+        newName = name
+        sites = self.request.get('sites')
+        playlist = self.request.get('playlist')
+        default = False
+
+        if (self.request.get('defaultProfile') == "True"):
+            default = True
+
+        profile = ndb.checkForProfile(email, name)
 
 
-
-        # TODO: get data from self
+        # name=X&sites=Y&playlist=Z&defaultProfile=True
 
         # profile = checkForProfile(email, name)
-        if profile:
-            updateProfile(email, name, newName, type, sites, playlist, default)
-        else:
-            createProfileData(email, name, type, sites, playlist, default)
+        # if profile:
+        #     ndb.updateProfile(email, name, newName, type, sites, playlist, default)
+        # else:
+        #     ndb.createProfileData(email, name, type, sites, playlist, default)
         time.sleep(0.1)
         self.redirect(url)
 

@@ -46,6 +46,9 @@ handlers:
 - url: /settings/profiles\..*
   script: sparklesPython.profiles.app
 
+- url: /settings/profileSend
+  script: sparklesPython.profiles.app
+
 - url: /settings/general\..*
   script: sparklesPython.general.app
 

@@ -22,7 +22,7 @@ import time
 
 itemNo = 0
 page = "Settings"
-url = "settings/general.html"
+url = "/settings/general.html"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
