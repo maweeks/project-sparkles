@@ -91,9 +91,7 @@ def generatePage(account):
 
     # print all current profiles
     profiles = ndb.getAllProfiles(account.email)
-    print(profiles)
     for profile in profiles:
-        print(profile.name)
         content += ndb.printCurrentProfileForm(profile)
 
     return p.getRow(content)

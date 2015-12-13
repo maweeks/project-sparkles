@@ -172,7 +172,6 @@ def printNewProfileForm(email):
     if not getDefaultProfile(email):
         checked = True
     return printProfileForm("Create new profile", "", "Home", "", "", checked)
-    # return printProfileForm("Create new profile", "", "Home", "", "", checked)
 
 def printProfileForm(title, name, type, sites, playlist, default):
     optionList = ""
@@ -352,11 +351,98 @@ def getAllLocations(email):
 
 # noLocations
 
-# printCurrentLocationForm
+def printCurrentLocationForm(location):
+    name = location.name
+    type = location.type
+    gpsLat = location.gpsLat
+    gpsLong = location.gpsLong
+    gpsRange = location.gpsRange
+    profileName = location.profileName
+    return printLocationForm("Location " + name, name, type, gpsLat, gpsLong, gpsRange, profileName)
 
-# printNewLocationForm
+def printNewLocationForm(email):
+    content = printLocationForm("Add new location", "", "Home", "", "", 20, "")
+    return content
 
-# printLocationForm
+def printLocationForm(title, name, type, gpsLat, gpsLong, gpsRange, profileNameX):
+    optionList = ""
+    options = ["Home", "Work", "Travel", "Social", "Other"]
+    selected = ""
+    deleteForm = ""
+
+    if name == "":
+        profileName = """<div class="col-lg-10">
+                    <input class="form-control" id="name" name="name" required placeholder="Name">"""
+    else:
+
+        deleteForm = """<button type="button" class="btn btn-danger" onclick="document.getElementById('form""" + name + """').action='/settings/locationDelete';document.getElementById('form""" + name + """').submit();">Delete Profile</button>"""
+        profileName = """<div class="col-lg-10 formItemText">
+                        <b>""" + name + """</b><input type="hidden" class="form-control" id="name" name="name" required placeholder="Name" value='""" + name + """'>"""
+
+    for option in options:
+        if type == option:
+            selected = " selected"
+        else:
+            selected = ""
+        optionList += "<option" + selected + " value='" + option + "'>" + option + "</option>"
+
+    contents = """<div class="col-md-12"><div class='thumbnail formThumbnail'>
+                    <h6>""" + title + """: </h6>
+                    <form class='form form-horizontal' action="/location/profileSend"  id='form""" + name + """' method="post">
+
+                    <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label"><em><b>Name</b></em></label>
+                    """ + profileName + """
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label"><em><b>Type</b></em></label>
+                    <div class="col-lg-10">
+                    <select class="form-control select select-primary select-block mbl" name="type">
+                    """ + optionList + """
+                    </select>
+                    <script> $("select").select2({dropdownCssClass: 'dropdown-inverse'}); </script>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="gpsLat" class="col-lg-2 control-label"><em><b>Latitude</b></em></label>
+                    <div class="col-lg-10">
+                    <input class="form-control" id="gpsLat" name="gpsLat" required placeholder="Latitude" value=""" + str(gpsLat) + """>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="gpsLong" class="col-lg-2 control-label"><em><b>Longitude</b></em></label>
+                    <div class="col-lg-10">
+                    <input class="form-control" id="gpsLong" name="gpsLong" required placeholder="Longitude" value=""" + str(gpsLong) + """>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="gpsRange" class="col-lg-2 control-label"><em><b>Range</b></em></label>
+                    <div class="col-lg-10">
+                    <input class="form-control" id="gpsRange" name="gpsRange" required placeholder="Range" value=""" + str(gpsRange) + """>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="profileNameX" class="col-lg-2 control-label"><em><b>Profile name</b></em></label>
+                    <div class="col-lg-10">
+                    <input class="form-control" id="profileNameX" name="profileNameX" required placeholder="Profile name" value=""" + profileNameX + """>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                    <input class='btn btn-primary' type="submit" value="Save Changes">
+                    <button type="button" class="btn btn-default" onclick="location.reload();">Cancel Changes</button>
+                    """ + deleteForm + """
+                    </div></div>
+
+                    </form></div></div>"""
+    return contents
 
 def updateLocation(email, name, newName, type, gpsLat, gpsLong, gpsRange, profileName):
     location = checkForLocation(email, name)
