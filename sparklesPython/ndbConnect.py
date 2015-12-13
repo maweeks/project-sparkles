@@ -230,8 +230,8 @@ def printProfileForm(title, name, type, sites, playlist, default):
 
                     <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                    <label class="checkbox" for="defaultProfile">
-                    <input type="checkbox" data-toggle="checkbox" value="True" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                    <label class="checkbox" for='check""" + name + """' >
+                    <input id='check""" + name + """' type="checkbox" data-toggle="checkbox" value="True" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
                     <em><b>Make default</b></em>
                     </label>
                     </div></div>
