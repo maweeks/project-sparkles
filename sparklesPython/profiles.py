@@ -77,32 +77,11 @@ def generatePage(account):
     content = ndb.printNewProfileForm(account.email)
 
     # print all current profiles
+    profiles = ndb.getAllProfiles(account.email)
+    for profile in profiles:
+        content += ndb.printCurrentProfileForm(profile)
 
     return p.getRow(content)
-
-# ndb.createProfileData(account.email, "First", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
-# time.sleep(0.2)
-# ndb.createProfileData(account.email, "First2", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
-# time.sleep(0.2)
-# ndb.updateProfile(account.email, "First", "First3", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", True)
-# time.sleep(0.2)
-#
-# if ndb.getDefaultProfile(account.email):
-#     print("found")
-# else:
-#     print("not")
-
-# if ndb.checkForProfile(account.email, "First2"):
-#     print("found")
-# else:
-#     print("not")
-#     ndb.createProfileData(account.email, "First2", "Home", ["bbc.co.uk","engadget.co.uk"], "NA", False)
-# time.sleep(0.1)
-# if ndb.checkForProfile(account.email, "First"):
-#     print("found")
-# else:
-#     print("not")
-# return p.getRow(ndb.printProfileForm())
 
 app = webapp2.WSGIApplication([
     ('/settings/profiles\..*', MainHandler),

@@ -123,6 +123,9 @@ def checkForProfile(email, name):
     else:
         return False
 
+def deleteProfile(profile):
+    profile.delete()
+
 def getAllProfiles(email):
     profile_query = Profile.query(Profile.email == email)
     profiles = profile_query.fetch(20)
@@ -137,18 +140,28 @@ def getDefaultProfile(email):
         return False
 
 def printCurrentProfileForm(profile):
+    print(profile)
     contents = "Name: " + profile.name
     contents += "<br/>Type: " + profile.type
-    contents += "<br/>Sites: " + profile.sites
+    contents += "<br/>Sites: " + str(profile.sites)
     contents += "</br>Playlist: " + profile.playlist
     contents += "</br>Default: " + str(profile.default)
-    return contents
+
+    name = profile.name
+    type = profile.type
+    sites = ""
+    for site in profile.sites:
+        sites+= site.site
+    playlist = profile.playlist
+    default = profile.default
+
+    return printProfileForm("Profile " + name, name, type, sites, playlist, default)
 
 def printNewProfileForm(email):
     checked = False
     if not getDefaultProfile(email):
         checked = True
-    return printProfileForm("Create new profile", "X", "Home", "Y\nS", "Z", checked)
+    return printProfileForm("Create new profile", "", "Home", "", "", checked)
     # return printProfileForm("Create new profile", "", "Home", "", "", checked)
 
 def printProfileForm(title, name, type, sites, playlist, default):
@@ -211,7 +224,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
                     <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                     <label class="checkbox" for="defaultProfile">
-                    <input type="checkbox" data-toggle="checkbox" value="True" id="defaultProfile" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                    <input type="checkbox" data-toggle="checkbox" value="True" name="defaultProfile" class="custom-checkbox" """ + checked + """><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
                     <em><b>Make default</b></em>
                     </label>
                     </div></div>
