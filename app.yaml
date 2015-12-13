@@ -44,10 +44,10 @@ handlers:
   script: sparklesPython.locations.app
 
 - url: /settings/locationDelete
-  script: sparklesPython.profiles.app
+  script: sparklesPython.locations.app
 
 - url: /settings/locationSend
-  script: sparklesPython.profiles.app
+  script: sparklesPython.locations.app
 
 - url: /settings/profiles\..*
   script: sparklesPython.profiles.app

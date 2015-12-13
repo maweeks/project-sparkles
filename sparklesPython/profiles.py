@@ -49,7 +49,6 @@ class MainHandler(webapp2.RequestHandler):
 class StoreHandler(webapp2.RequestHandler):
     def post(self):
         email = p.getUser().email()
-        # print (self.request)
 
         name = self.request.get('name')
         newName = name
@@ -63,10 +62,6 @@ class StoreHandler(webapp2.RequestHandler):
 
         if (self.request.get('defaultProfile') == "True"):
             default = True
-
-        profile = ndb.checkForProfile(email, name)
-
-        # name=X&sites=Y&playlist=Z&defaultProfile=True
 
         profile = ndb.checkForProfile(email, name)
         if profile:

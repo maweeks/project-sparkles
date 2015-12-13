@@ -34,7 +34,7 @@ class MainHandler(webapp2.RequestHandler):
             pageContents = p.getLoginPage(url)
         else:
             email = user.email()
-            pageContents = generatePage(ndb.forceAccount(email))
+            pageContents = generateGetPage(ndb.forceAccount(email))
 
         self.response.write(p.getHeader(page, url))
 
@@ -45,16 +45,46 @@ class MainHandler(webapp2.RequestHandler):
 
         self.response.write(p.getFooter())
 
-def generatePage(account):
-    content = ""
+    def post(self):
+        user = p.getUser()
+        pageContents = ""
+
+        print(self.request.get('location'))
+        gps = "Not available."
+        if self.request.get('location') != "":
+            gps = self.request.get('location').split(" ")
+
+
+
+        if not user:
+            pageContents = p.getLoginPage(url)
+        else:
+            email = user.email()
+            pageContents = generatePage(ndb.forceAccount(email), gps)
+
+        self.response.write(p.getHeader(page, url))
+
+        if itemNo != -1:
+            self.response.write(p.getRunHeadings(itemNo))
+
+        self.response.write(p.getContents(pageContents))
+
+        self.response.write(p.getFooter())
+
+def generateGetPage(account):
+    pageContents = p.getRow(rs.getGPSJavascript(url))
+    return pageContents
+
+def generatePage(account, gps):
+    pageContents = p.getRow(p.getGPSBox(gps))
     profile = ndb.getDefaultProfile(account.email)
     if profile:
-        content += "<script>" + rs.generateProfileScript(profile) + "</script>"
-        content += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
-        content += ndb.printProfileList(profile, True)
+        # pageContents += "<script>" + rs.generateProfileScript(profile) + "</script>"
+        pageContents += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
+        pageContents += ndb.printProfileList(profile, True)
     else:
-        content += ndb.noProfiles()
-    return p.getRow(content);
+        pageContents += ndb.noProfiles()
+    return p.getRow(pageContents);
 
 app = webapp2.WSGIApplication([
     ('/run/auto\..*', MainHandler)

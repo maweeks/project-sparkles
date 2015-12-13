@@ -72,13 +72,40 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write(p.getFooter())
 
 
+class StoreHandler(webapp2.RequestHandler):
+    def post(self):
+        email = p.getUser().email()
+
+        name = self.request.get('name')
+        newName = name
+        type = self.request.get('type')
+        gpsLat = float(self.request.get('gpsLat'))
+        gpsLong = float(self.request.get('gpsLong'))
+        gpsRange = int(self.request.get('gpsRange'))
+        profileName = self.request.get('profileNameX')
+
+        profile = ndb.checkForLocation(email, name)
+        if profile:
+            ndb.updateLocation(email, name, newName, type, gpsLat, gpsLong, gpsRange, profileName)
+        else:
+            ndb.createLocationData(email, name, type, gpsLat, gpsLong, gpsRange, profileName)
+        time.sleep(0.1)
+        self.redirect(url)
+
+
+class DeleteHandler(webapp2.RequestHandler):
+    def post(self):
+        name = self.request.get('name')
+        email = p.getUser().email()
+        ndb.deleteLocation(name, email)
+        time.sleep(0.1)
+        self.redirect(url)
 
 def generateGetPage(account):
     pageContents = p.getRow(rs.getGPSJavascript(url))
     return pageContents
 
 def generatePage(account, gps):
-    pageContents = p.getRow("""POST""")
     pageContents = p.getRow(p.getGPSBox(gps))
 
     pageContents += p.getRow(ndb.printNewLocationForm(account.email))
@@ -88,22 +115,10 @@ def generatePage(account, gps):
     for location in locations:
         pageContents += p.getRow(ndb.printCurrentLocationForm(location))
 
-    # ndb.createLocationData(account.email, "A", "S", 1.01, 0.101, 20, "X")
-    # ndb.createLocationData(account.email, "B", "S", 1.01, 0.101, 20, "X")
-    # print("asdf")
-    # print(ndb.checkForLocation(account.email, "A"))
-    # print(ndb.checkForLocation(account.email, "S"))
-    # print(ndb.getAllLocations(account.email))
-    # ndb.deleteLocation("A", account.email)
-    # ndb.updateLocation(account.email, "A", "X", "R", 1.011, 10.101, 220, "E")
-
     return pageContents
 
-
-
-
-
-
 app = webapp2.WSGIApplication([
-    ('/settings/locations\..*', MainHandler)
+    ('/settings/locations\..*', MainHandler),
+    ('/settings/locationSend', StoreHandler),
+    ('/settings/locationDelete', DeleteHandler)
 ], debug=True)

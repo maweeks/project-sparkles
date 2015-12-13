@@ -388,7 +388,7 @@ def printLocationForm(title, name, type, gpsLat, gpsLong, gpsRange, profileNameX
 
     contents = """<div class="col-md-12"><div class='thumbnail formThumbnail'>
                     <h6>""" + title + """: </h6>
-                    <form class='form form-horizontal' action="/location/profileSend"  id='form""" + name + """' method="post">
+                    <form class='form form-horizontal' action="/settings/locationSend"  id='form""" + name + """' method="post">
 
                     <div class="form-group">
                     <label for="name" class="col-lg-2 control-label"><em><b>Name</b></em></label>
