@@ -74,6 +74,16 @@ class StoreHandler(webapp2.RequestHandler):
         time.sleep(0.1)
         self.redirect(url)
 
+
+class DeleteHandler(webapp2.RequestHandler):
+    def post(self):
+        name = self.request.get('name')
+        email = p.getUser().email()
+        ndb.deleteProfile(name, email)
+        time.sleep(0.1)
+        self.redirect(url)
+
+
 def generatePage(account):
     content = ndb.printNewProfileForm(account.email)
 
@@ -86,5 +96,6 @@ def generatePage(account):
 
 app = webapp2.WSGIApplication([
     ('/settings/profiles\..*', MainHandler),
-    ('/settings/profileSend', StoreHandler)
+    ('/settings/profileSend', StoreHandler),
+    ('/settings/profileDelete', DeleteHandler)
 ], debug=True)

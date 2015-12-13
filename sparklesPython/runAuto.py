@@ -48,7 +48,7 @@ class MainHandler(webapp2.RequestHandler):
 def generatePage(account):
     content = ""
     profile = ndb.getDefaultProfile(account.email)
-    content += "<script>" + rs.generateProfileScript(profile) + "</script>"
+    content += "<script>" + rs.generateProfileScript(p÷rofile) + "</script>"
     content += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
     content += ndb.printProfileList(profile, True)
 

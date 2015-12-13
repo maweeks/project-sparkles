@@ -124,8 +124,14 @@ def checkForProfile(email, name):
     else:
         return False
 
-def deleteProfile(profile):
-    profile.delete()
+def deleteProfile(name, email):
+    profile = checkForProfile(email, name)
+    if profile:
+        print(profile)
+        print("asdf")
+        print(profile.put())
+        print("asdf")
+        profile.put().delete()
 
 def getAllProfiles(email):
     profile_query = Profile.query(Profile.email == email).order(-Profile.default,-Profile.name)
@@ -141,13 +147,6 @@ def getDefaultProfile(email):
         return False
 
 def printCurrentProfileForm(profile):
-    print(profile)
-    contents = "Name: " + profile.name
-    contents += "<br/>Type: " + profile.type
-    contents += "<br/>Sites: " + str(profile.sites)
-    contents += "</br>Playlist: " + profile.playlist
-    contents += "</br>Default: " + str(profile.default)
-
     name = profile.name
     type = profile.type
     sites = ""
@@ -169,11 +168,12 @@ def printProfileForm(title, name, type, sites, playlist, default):
     optionList = ""
     options = ["Home", "Work", "Travel", "Social", "Other"]
     selected = ""
-
+    deleteForm = ""
     if name == "":
         profileName = """<div class="col-lg-10">
                     <input class="form-control" id="name" name="name" required placeholder="Name">"""
     else:
+        deleteForm = """<button type="button" class="btn btn-danger" onclick="document.getElementById('form""" + name + """').action='/settings/profileDelete';document.getElementById('form""" + name + """').submit();">Delete Profile</button>"""
         profileName = """<div class="col-lg-10 formItemText">
                         <b>""" + name + """</b><input type="hidden" class="form-control" id="name" name="name" required placeholder="Name" value='""" + name + """'>"""
 
@@ -190,7 +190,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
 
     contents = """<div class="col-md-12">
                     <h6>""" + title + """: </h6>
-                    <form class='form form-horizontal' action="/settings/profileSend" method="post">
+                    <form class='form form-horizontal' action="/settings/profileSend"  id='form""" + name + """' method="post">
 
                     <div class="form-group">
                     <label for="name" class="col-lg-2 control-label"><em><b>Name</b></em></label>
@@ -234,6 +234,7 @@ def printProfileForm(title, name, type, sites, playlist, default):
                     <div class="col-lg-offset-2 col-lg-10">
                     <input class='btn btn-primary' type="submit" value="Save Changes">
                     <button type="button" class="btn btn-default" onclick="location.reload();">Cancel Changes</button>
+                    """ + deleteForm + """
                     </div></div>
 
                     </form></div>"""
