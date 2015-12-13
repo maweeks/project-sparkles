@@ -358,4 +358,27 @@ def getAllLocations(email):
 
 # printLocationForm
 
-# updateLocation
+def updateLocation(email, name, newName, type, gpsLat, gpsLong, gpsRange, profileName):
+    location = checkForLocation(email, name)
+    changed = False
+    if (location.name != newName):
+        location.name = newName
+        changed = True
+    if (location.type != type):
+        location.type = type
+        changed = True
+    if (location.gpsLat != gpsLat):
+        location.gpsLat = gpsLat
+        changed = True
+    if (location.gpsLong != gpsLong):
+        location.gpsLong = gpsLong
+        changed = True
+    if (location.gpsRange != gpsRange):
+        location.gpsRange = gpsRange
+        changed = True
+    if (location.profileName != profileName):
+        location.profileName = profileName
+        changed = True
+
+    if changed:
+        location.put()
