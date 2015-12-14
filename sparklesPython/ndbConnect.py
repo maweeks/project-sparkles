@@ -152,9 +152,14 @@ def getDefaultProfile(email):
     else:
         return False
 
-def noProfiles():
-    content = "<div class='col-md-12 text-center'><h6>No profiles found, please add some by following <a href='/settings/profiles.html'>this link</a>.</h6></div>"
-    return content
+def noProfiles(error):
+    if error == 0:
+        content = "No profiles found, please add some by following <a href='/settings/profiles.html'>this link</a>."
+    elif error == 1:
+        content = "No default profile found, please select a default profile by following <a href='/settings/profiles.html'>this link</a>."
+    elif error == 2:
+        content = "No profiles found for your GPS location, please add new locations by following <a href='/settings/locations.html'>this link</a>."
+    return "<div class='col-md-12 text-center'><h6>" + content + "</h6></div>"
 
 def printCurrentProfileForm(profile):
     name = profile.name
@@ -472,20 +477,19 @@ def getGPSProfile(email, gps):
     location_query = Location.query(Location.email == email)
     locations = location_query.fetch(20)
     if locations:
-        bestLocation = ""
+        bestLocation = False
         bestLocationDistance = 9999999999999999999
         for location in locations:
-            print("a")
-            print(rs.getGPSm(gps[0], gps[1], location.gpsLat, location.gpsLong))
-            print(location.gpsRange)
-            print("asdf")
             distance = rs.getGPSm(gps[0], gps[1], location.gpsLat, location.gpsLong)
             if (distance < bestLocationDistance) and (distance < location.gpsRange):
                 bestLocation = location
 
-        profile = checkForProfile(email, bestLocation.profileName)
-        if profile:
-            return profile
+        if bestLocation:
+            profile = checkForProfile(email, bestLocation.profileName)
+            if checkForProfile(email, bestLocation.profileName):
+                return profile
+            else:
+                return False
         else:
             return False
     else:

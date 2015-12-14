@@ -48,8 +48,6 @@ class MainHandler(webapp2.RequestHandler):
     def post(self):
         user = p.getUser()
         pageContents = ""
-
-        print(self.request.get('location'))
         gps = "Not available."
         if self.request.get('location') != "":
             gps = self.request.get('location').split(" ")

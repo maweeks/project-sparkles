@@ -74,19 +74,19 @@ def generateGetPage(account):
 
 def generatePage(account, gps):
     pageContents = p.getRow(p.getGPSBox(gps))
-
+    error = 0
     if gps != "Not available.":
         profile = ndb.getGPSProfile(account.email, gps)
-
+        error = 2
     else:
         profile = ndb.getDefaultProfile(account.email)
-
+        error = 1
     if profile:
-        # pageContents += "<script>" + rs.generateProfileScript(profile) + "</script>"
+        pageContents += "<script>" + rs.generateProfileScript(profile) + "</script>"
         pageContents += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
         pageContents += ndb.printProfileList(profile, True)
     else:
-        pageContents += ndb.noProfiles()
+        pageContents += ndb.noProfiles(error)
     return p.getRow(pageContents);
 
 app = webapp2.WSGIApplication([
