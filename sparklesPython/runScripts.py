@@ -13,6 +13,8 @@ def generateProfileScript(profile):
             hidden = True
         else:
             script += "window.open(' " + site.site.rstrip() + "');"
+    if profile.playlist != "":
+        script += "window.open('http://open.spotify.com/" + profile.playlist.rstrip() + "');"
     return script
 
 def getGPSm(lat1, long1, lat2, long2):
