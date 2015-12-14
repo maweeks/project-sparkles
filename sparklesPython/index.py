@@ -29,7 +29,7 @@ class MainHandler(webapp2.RequestHandler):
     					<h5 class='text-primary'>What actions are available?</h5>
     					<b><ul>
     					<li>Open websites.</li>
-    					<li>Play music through spotify (coming soon).</li>
+    					<li>Play music through spotify</li>
     					</ul></b><br/>
     					<h5 class='text-primary'>How do you use it?</h5>
     					<b><ol>
