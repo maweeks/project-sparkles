@@ -43,11 +43,15 @@ def getGPSJavascript(url):
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(showPosition);
                     }
+                    else {
+                        document.getElementById('gettingLocation').style.display = "none";
+                    }
                 }
 
                 function showPosition(position) {
                     document.getElementById('location').value = (position.coords.latitude +
                     " " + position.coords.longitude);
+                    document.getElementById('gettingLocation').style.display = "none";
                     geoPost();
                 }
 
@@ -57,6 +61,14 @@ def getGPSJavascript(url):
                 getLocation();
                 setTimeout(geoPost, 10000);
                 </script>
+
+                <div class="col-lg-12 gettingGPS" id="gettingLocation">
+                <div class='thumbnail formThumbnail text-center' id="gettingLocationThumb">
+                <b>Currently attempting to access your location.</b><br/>
+                This could take up to 10 seconds and you have to allow us to use your location.
+                </div></div><br/>
+
+
                 <div class="col-lg-12">
                 <form id='geoForm' class='form form-horizontal' action='""" + url + """' method="post">
                 <div class="form-group">
