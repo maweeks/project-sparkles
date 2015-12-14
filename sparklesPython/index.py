@@ -29,12 +29,13 @@ class MainHandler(webapp2.RequestHandler):
     					<h5 class='text-primary'>What actions are available?</h5>
     					<b><ul>
     					<li>Open websites.</li>
-    					<li>Play music through spotify</li>
+                        <li>Play music through spotify</li>
+                        <li>More coming soon...</li>
     					</ul></b><br/>
     					<h5 class='text-primary'>How do you use it?</h5>
     					<b><ol>
     					<li>Sign into your Google account.</li>
-    					<li>Connect any external accounts that you want to connect to.</li>
+    					<li>Connect any external accounts that you want to use.</li>
     					<li>Create profiles full of the actions that you want to automate.</li>
     					<li>Set the actions that you want to trigger each of the profiles.</li>
     					</ol></b><br/>
