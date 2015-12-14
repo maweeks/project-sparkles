@@ -25,7 +25,7 @@ class MainHandler(webapp2.RequestHandler):
     					<em><b>Automate your device, and carry on with your life!</b></em>
     					</div><br/>
     					<h5 class='text-primary'>What is Project Sparkles?</h5>
-    					<b>Project Sparkles is a simple application that allows you to automate actions to speed up the setting up your device.</b><br/><br/>
+    					<b>Project Sparkles is a simple application that allows you to automate actions to speed up the setting up of your device.</b><br/><br/>
     					<h5 class='text-primary'>What actions are available?</h5>
     					<b><ul>
     					<li>Open websites.</li>
@@ -35,7 +35,7 @@ class MainHandler(webapp2.RequestHandler):
     					<b><ol>
     					<li>Sign into your Google account.</li>
     					<li>Connect any external accounts that you want to connect to.</li>
-    					<li>Create profiles full of the actions that you want to occur.</li>
+    					<li>Create profiles full of the actions that you want to automate.</li>
     					<li>Set the actions that you want to trigger each of the profiles.</li>
     					</ol></b><br/>
     					<h5 class='text-primary'>Got some feedback?</h5>
