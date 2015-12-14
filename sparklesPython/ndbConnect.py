@@ -45,7 +45,7 @@ class Location(ndb.Model):
     type = ndb.StringProperty(indexed=False)
     gpsLat = ndb.FloatProperty(indexed=True)
     gpsLong = ndb.FloatProperty(indexed=True)
-    gpsRange = ndb.IntegerProperty(indexed=False)
+    gpsRange = ndb.IntegerProperty(indexed=True)
     profileName = ndb.StringProperty(indexed=True)
 
 # Account methods
@@ -349,8 +349,6 @@ def getAllLocations(email):
     locations = location_query.fetch(20)
     return locations
 
-# noLocations
-
 def printCurrentLocationForm(location):
     name = location.name
     type = location.type
@@ -468,3 +466,28 @@ def updateLocation(email, name, newName, type, gpsLat, gpsLong, gpsRange, profil
 
     if changed:
         location.put()
+
+def getGPSProfile(email, gps):
+    # search
+    location_query = Location.query(Location.email == email)
+    locations = location_query.fetch(20)
+    if locations:
+        bestLocation = ""
+        bestLocationDistance = 9999999999999999999
+        for location in locations:
+            print("a")
+            print(rs.getGPSm(gps[0], gps[1], location.gpsLat, location.gpsLong))
+            print(location.gpsRange)
+            print("asdf")
+            distance = rs.getGPSm(gps[0], gps[1], location.gpsLat, location.gpsLong)
+            if (distance < bestLocationDistance) and (distance < location.gpsRange):
+                bestLocation = location
+
+        profile = checkForProfile(email, bestLocation.profileName)
+        if profile:
+            return profile
+        else:
+            return False
+    else:
+        return False
+    return False

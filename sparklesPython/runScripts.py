@@ -1,3 +1,5 @@
+from decimal import Decimal
+import math
 import ndbConnect as ndb
 
 def generateProfileScript(profile):
@@ -12,6 +14,27 @@ def generateProfileScript(profile):
         else:
             script += "window.open(' " + site.site.rstrip() + "');"
     return script
+
+def getGPSm(lat1, long1, lat2, long2):
+    # Convert latitude and longitude to
+    # spherical coordinates in radians.
+    dToR = float(math.pi/180.0)
+
+    # latitude in radians
+    latX1 = (90.0 - float(lat1))*dToR
+    latX2 = (90.0 - float(lat2))*dToR
+
+    # longitude in radians
+    longX1 = float(long1)*dToR
+    longX2 = long2*dToR
+
+    # Compute spherical distance from spherical coordinates.
+    calc = (math.sin(latX1)*math.sin(latX2)*math.cos(longX1 - longX2) +
+           math.cos(latX1)*math.cos(latX2))
+    arc = math.acos( calc )
+
+    # return distance between 2 points in meters.
+    return int(arc * 6373000)
 
 def getGPSJavascript(url):
     script = """<script>
@@ -51,7 +74,3 @@ def getGPSJavascript(url):
 
 def hasAutohide(account):
     return account.autoHide
-
-
-
-# setTimeout(geoPost, 5000);

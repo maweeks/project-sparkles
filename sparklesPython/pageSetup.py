@@ -117,17 +117,17 @@ def getGPSBox(gps):
     else:
         gpsString = gps
     return """<div class='col-md-12'>
-<div class='thumbnail""" + gpsClass + """'>
-<form id='geoLoc' class='form form-horizontal'>
-<div class="form-group">
-<label for="location" class="col-lg-2 control-label thinTopPadding"><em><b>Current location:</b></em></label>
-<div class="col-lg-10">
-<p>""" + gpsString + """</p>
-</div>
-</div>
-</form>
-</div>
-</div>"""
+                <div class='thumbnail""" + gpsClass + """'>
+                <form id='geoLoc' class='form form-horizontal'>
+                <div class="form-group">
+                <label for="location" class="col-lg-2 control-label thinTopPadding"><em><b>Current location:</b></em></label>
+                <div class="col-lg-10">
+                <p>""" + gpsString + """</p>
+                </div>
+                </div>
+                </form>
+                </div>
+                </div>"""
 
 def getFooter():
     return """<footer class="container">

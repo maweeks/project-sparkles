@@ -49,12 +49,9 @@ class MainHandler(webapp2.RequestHandler):
         user = p.getUser()
         pageContents = ""
 
-        print(self.request.get('location'))
         gps = "Not available."
         if self.request.get('location') != "":
             gps = self.request.get('location').split(" ")
-
-
 
         if not user:
             pageContents = p.getLoginPage(url)
@@ -77,7 +74,13 @@ def generateGetPage(account):
 
 def generatePage(account, gps):
     pageContents = p.getRow(p.getGPSBox(gps))
-    profile = ndb.getDefaultProfile(account.email)
+
+    if gps != "Not available.":
+        profile = ndb.getGPSProfile(account.email, gps)
+
+    else:
+        profile = ndb.getDefaultProfile(account.email)
+
     if profile:
         # pageContents += "<script>" + rs.generateProfileScript(profile) + "</script>"
         pageContents += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
