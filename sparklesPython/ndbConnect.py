@@ -270,11 +270,11 @@ def printProfileList(profile, solo):
     for site in profile.sites:
         sites+= "<a href='" + site.site + "' target='_blank'>" + site.site + "</a><br/>"
 
-    soloClasses = ""
+    soloClasses = "col-sm-6 col-md-4 "
     if solo:
-        soloClasses = " col-sm-offset-3 col-md-offset-4"
+        soloClasses = "col-sm-12 col-md-12 col-sm-offset-0 col-md-offset-0"
 
-    contents = """<div class='col-sm-6 col-md-4 """ + soloClasses + """'><div class='thumbnail """ + defaultHighlight + """'>
+    contents = """<div class='""" + soloClasses + """'><div class='thumbnail """ + defaultHighlight + """'>
                 <button class="btn btn-primary" onclick=" """ + siteFunction + """ ">Run Profile</button>
                 <a href="/settings/profiles.html"><button class="btn btn-default">Edit Profile</button></a>
                 <br/><br/>

@@ -80,6 +80,10 @@ div.container {
     margin: 0 auto;
 }
 
+.thumbnail {
+    word-wrap: break-word;
+}
+
 .whiteLink {
     color: #fff;
 }

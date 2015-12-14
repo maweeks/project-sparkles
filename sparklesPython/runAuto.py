@@ -83,7 +83,7 @@ def generatePage(account, gps):
         error = 1
     if profile:
         pageContents += "<script>" + rs.generateProfileScript(profile) + "</script>"
-        pageContents += "<div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
+        pageContents += "<br/><div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
         pageContents += ndb.printProfileList(profile, True)
     else:
         pageContents += ndb.noProfiles(error)
