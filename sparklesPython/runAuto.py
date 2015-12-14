@@ -84,10 +84,10 @@ def generatePage(account, gps):
     if profile:
         pageContents += "<script>" + rs.generateProfileScript(profile) + "</script>"
         pageContents += "<br/><div class='text-center'><h4>Profile <em>" + profile.name + "</em> has been executed!</h4></div>"
-        pageContents += ndb.printProfileList(profile, True)
+        pageContents += p.getRow(ndb.printProfileList(profile, True))
     else:
         pageContents += ndb.noProfiles(error)
-    return p.getRow(pageContents);
+    return pageContents;
 
 app = webapp2.WSGIApplication([
     ('/run/auto\..*', MainHandler)
