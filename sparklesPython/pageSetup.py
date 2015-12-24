@@ -132,6 +132,6 @@ def getGPSBox(gps):
 def getFooter():
     return """<footer class="container">
             <div class="row">
-            <hr/><p class="bigMargin softenText text-center"> &copy; 2015. Matt Weeks, Leon Su &amp; Zak Walker</p>
+            <hr/><p class="bigMargin softenText text-center">&copy; 2015 Matt Weeks</p>
             </div>
             </footer>"""
