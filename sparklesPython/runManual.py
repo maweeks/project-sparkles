@@ -52,7 +52,7 @@ def generatePage(account):
     for profile in profiles:
         content += ndb.printProfileList(profile, False)
     if content == "":
-        content += ndb.noProfiles()
+        content += ndb.noProfiles(0)
 
     return p.getRow(content);
 
